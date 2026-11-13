@@ -1,2 +1,2 @@
-# meridiantravel
+# index
 для выбора путешествия
