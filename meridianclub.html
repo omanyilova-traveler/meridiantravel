@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MERIDIAN — Private Travel Concierge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#0A0A0C',
+            graphite: '#141417',
+            gold: '#D4AF37',
+            'gold-light': '#F3E5AB',
+            platinum: '#A1A1AA',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #050507; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; -webkit-tap-highlight-color: transparent; user-select: none; }
+    .glass { background: rgba(20, 20, 23, 0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.09); }
+    .glass-strong { background: rgba(10, 10, 12, 0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .gold-border { border: 1px solid rgba(212, 175, 55, 0.38); }
+    @keyframes kenburns { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    .animate-kenburns { animation: kenburns 22s ease-in-out infinite; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .fade-enter { animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body oncontextmenu="return false;" class="flex justify-center items-start min-h-screen bg-[#050507] sm:py-6">
+
+  <!-- Мобильный контейнер -->
+  <div class="relative w-full max-w-[430px] h-screen sm:h-[880px] bg-obsidian sm:rounded-[44px] sm:border-[6px] sm:border-[#1F1F24] shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col">
+
+    <!-- ==========================================================
+         ЭКРАН ЗАЩИТЫ АВТОРСТВА (VIP INVITE GATE)
+         ========================================================== -->
+    <div id="screen-gate" class="absolute inset-0 z-50 bg-obsidian flex flex-col justify-between p-7">
+      <div class="absolute inset-0 z-0 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover opacity-25 animate-kenburns" alt="">
+        <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/85 to-obsidian"></div>
+      </div>
+
+      <div class="relative z-10 flex items-center justify-between pt-2">
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div>
+          <span class="font-serif tracking-[0.25em] text-sm font-semibold text-white">MERIDIAN</span>
+        </div>
+        <span class="px-2.5 py-0.5 rounded-full glass gold-border text-[10px] text-gold uppercase tracking-wider">Closed Beta</span>
+      </div>
+
+      <div class="relative z-10 my-auto">
+        <div class="w-12 h-12 rounded-2xl bg-gold/10 gold-border flex items-center justify-center text-gold mb-5">
+          <i data-lucide="key-round" class="w-6 h-6"></i>
+        </div>
+        <h1 class="font-serif text-4xl text-white leading-tight mb-2">
+          Закрытый показ <br><span class="italic font-normal text-gold-light">для приглашенных</span>
+        </h1>
+        <p class="text-xs text-platinum leading-relaxed mb-6">
+          Этот прототип является частной интеллектуальной собственностью автора. Доступ возможен только по персональному именному ключу.
+        </p>
+
+        <div class="space-y-3">
+          <div class="glass rounded-2xl p-1.5 flex items-center focus-within:border-gold transition">
+            <i data-lucide="shield" class="w-4 h-4 text-gold ml-3 mr-2 shrink-0"></i>
+            <input id="invite-input" type="text" placeholder="Введите ваш ключ (например, VIP-01)..." class="w-full bg-transparent text-white placeholder-platinum/50 text-sm py-2.5 focus:outline-none uppercase tracking-wider">
+          </div>
+          <p id="invite-error" class="hidden text-[11px] text-rose-400 pl-2">Неверный ключ доступа. Запросите персональный код у автора проекта.</p>
+          <button onclick="unlockApp()" class="w-full bg-gold hover:bg-[#e0bb3e] text-obsidian font-semibold text-xs py-4 rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
+            <span>Войти по персональному приглашению</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- БЛОК АВТОРСТВА (ВПИШИ СВОЕ ИМЯ НИЖЕ) -->
+      <div class="relative z-10 border-t border-white/10 pt-4 text-[10px] text-platinum/70 space-y-1">
+        <div class="text-white font-medium">© 2026 MERIDIAN Travel Intelligence. Все права защищены.</div>
+        <div>Создатель и правообладатель: Авторский проект (Olga Manuilova)</div>
+        <div class="text-[9px] text-platinum/50">Копирование интерфейса, структуры досье и передача ссылки третьим лицам без согласия автора запрещены.</div>
+      </div>
+    </div>
+
+    <!-- ВОДЯНОЙ ЗНАК СЕССИИ (Защита от пересылки) -->
+    <div id="watermark-bar" class="hidden absolute bottom-1 right-4 z-50 pointer-events-none text-[9px] text-white/30 tracking-wider uppercase">
+      Доступ: <span id="watermark-code">VIP</span> • Передача запрещена
+    </div>
+
+    <!-- ВЕРХНЯЯ ШАПКА -->
+    <header class="absolute top-0 left-0 right-0 z-40 px-6 pt-6 pb-3 flex justify-between items-center bg-gradient-to-b from-black/85 via-black/40 to-transparent">
+      <button onclick="showHome()" class="flex items-center gap-2 text-left group">
+        <div class="w-2 h-2 rounded-full bg-gold group-hover:scale-125 transition-transform"></div>
+        <span class="font-serif tracking-[0.25em] text-sm font-semibold text-white">MERIDIAN</span>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <div class="glass px-2.5 py-1 rounded-full text-[11px] text-platinum flex items-center gap-1.5">
+          <span>Паспорт:</span>
+          <span class="text-white font-medium">РФ 🇷🇺</span>
+        </div>
+
+        <button onclick="openCompareModal()" class="relative glass w-9 h-9 rounded-full flex items-center justify-center hover:border-gold/50 transition" title="Шорт-лист">
+          <i data-lucide="bookmark" class="w-4 h-4 text-white"></i>
+          <span id="fav-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-obsidian text-[10px] font-bold flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ЭКРАН 1: ГЛАВНЫЙ КАТАЛОГ И ПОИСК -->
+    <main id="screen-home" class="relative flex-1 flex flex-col justify-between p-6 overflow-y-auto no-scrollbar">
+      <div class="fixed sm:absolute inset-0 z-0 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Background" class="w-full h-full object-cover animate-kenburns opacity-40">
+        <div class="absolute inset-0 bg-gradient-to-b from-obsidian/80 via-obsidian/65 to-obsidian"></div>
+      </div>
+
+      <div class="relative z-10 pt-14 pb-4">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass gold-border text-gold text-[10px] uppercase tracking-widest mb-3">
+          <i data-lucide="sparkles" class="w-3 h-3"></i> Private Travel Intelligence
+        </div>
+        
+        <h1 class="font-serif text-4xl text-white leading-[1.1] mb-2">
+          Куда отправимся <br><span class="italic font-normal text-gold-light">в этот раз?</span>
+        </h1>
+        <p class="text-platinum text-xs mb-5 font-light leading-relaxed">
+          Визовый статус, климат, работа карт и лучшие локации по 195 странам мира за 10 секунд.
+        </p>
+
+        <!-- Поиск -->
+        <div class="relative mb-5">
+          <div class="glass rounded-2xl p-1.5 flex items-center focus-within:border-gold/60 transition shadow-2xl">
+            <i data-lucide="search" class="w-5 h-5 text-gold ml-3 mr-2 shrink-0"></i>
+            <input id="search-input" type="text" placeholder="Введите страну (Вьетнам, Китай, Перу)..." autocomplete="off" class="w-full bg-transparent text-white placeholder-platinum/60 text-sm py-2.5 focus:outline-none">
+            <button id="clear-search" onclick="clearSearch()" class="hidden p-2 text-platinum hover:text-white">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div id="search-dropdown" class="hidden absolute left-0 right-0 mt-2 glass rounded-2xl overflow-hidden z-30 shadow-2xl max-h-64 overflow-y-auto divide-y divide-white/5"></div>
+        </div>
+
+        <!-- Вкладки регионов -->
+        <div class="mb-3">
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+            <button onclick="filterRegion('all')" data-region="all" class="region-tab px-3 py-1.5 rounded-full text-xs font-medium bg-gold text-obsidian transition shrink-0">Все (17)</button>
+            <button onclick="filterRegion('asia')" data-region="asia" class="region-tab glass px-3 py-1.5 rounded-full text-xs text-platinum hover:text-white transition shrink-0">Азия и Острова (7)</button>
+            <button onclick="filterRegion('europe')" data-region="europe" class="region-tab glass px-3 py-1.5 rounded-full text-xs text-platinum hover:text-white transition shrink-0">Европа и Турция (3)</button>
+            <button onclick="filterRegion('latam')" data-region="latam" class="region-tab glass px-3 py-1.5 rounded-full text-xs text-platinum hover:text-white transition shrink-0">Латинская Америка (5)</button>
+            <button onclick="filterRegion('mena')" data-region="mena" class="region-tab glass px-3 py-1.5 rounded-full text-xs text-platinum hover:text-white transition shrink-0">Восток и ЮАР (2)</button>
+          </div>
+        </div>
+
+        <!-- Сетка стран -->
+        <div id="country-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-[380px] overflow-y-auto no-scrollbar pr-0.5 pb-4"></div>
+      </div>
+
+      <div class="relative z-10 flex justify-between items-center text-[10px] text-platinum/50 border-t border-white/5 pt-3 mt-auto">
+        <span>© 2026 MERIDIAN • Author Prototype</span>
+        <span>База: 195 стран</span>
+      </div>
+    </main>
+
+    <!-- ЭКРАН 2: ДОСЬЕ СТРАНЫ -->
+    <main id="screen-country" class="hidden flex-1 overflow-y-auto no-scrollbar scroll-smooth relative">
+      
+      <!-- 4K Фотогалерея -->
+      <section class="relative h-screen sm:h-[880px] w-full shrink-0 flex flex-col justify-end p-6 select-none">
+        <div class="absolute inset-0 z-0 bg-obsidian">
+          <img id="country-hero-img" src="" alt="Country view" class="w-full h-full object-cover transition-opacity duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-black/50"></div>
+        </div>
+
+        <div onclick="prevPhoto()" class="absolute inset-y-20 left-0 w-1/3 z-10 cursor-pointer"></div>
+        <div onclick="nextPhoto()" class="absolute inset-y-20 right-0 w-2/3 z-10 cursor-pointer"></div>
+
+        <div id="photo-indicators" class="relative z-20 flex gap-1.5 mb-auto mt-14"></div>
+
+        <div class="relative z-20 mb-auto mt-3 flex justify-between items-center">
+          <button onclick="showHome()" class="glass px-3.5 py-1.5 rounded-full flex items-center gap-1.5 text-xs text-white hover:border-gold/50 transition">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> К выбору стран
+          </button>
+          <div class="glass px-3 py-1 rounded-full text-[11px] text-gold flex items-center gap-1">
+            <i data-lucide="camera" class="w-3 h-3"></i>
+            <span>Нажмите на фото для смены</span>
+          </div>
+        </div>
+
+        <div class="relative z-20 mb-6 fade-enter">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/55 backdrop-blur-md border border-white/10 text-[11px] text-gold-light mb-3">
+            <i data-lucide="map-pin" class="w-3 h-3 text-gold shrink-0"></i>
+            <span id="photo-caption">Локация</span>
+          </div>
+          <div class="flex items-baseline gap-3 flex-wrap">
+            <h1 id="country-name" class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-white">Страна</h1>
+            <span id="country-flag" class="text-3xl">🏳️</span>
+          </div>
+          <p id="country-tagline" class="text-platinum text-sm mt-1 font-light"></p>
+        </div>
+
+        <a href="#bento-section" class="relative z-20 glass gold-border rounded-2xl p-3.5 flex items-center justify-between group hover:bg-white/5 transition cursor-pointer">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-gold/15 flex items-center justify-center text-gold">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xs font-medium text-white">Аналитическое досье страны</div>
+              <div class="text-[11px] text-platinum">Погода, виза, деньги и приоритеты</div>
+            </div>
+          </div>
+          <div class="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center group-hover:translate-y-0.5 transition">
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gold"></i>
+          </div>
+        </a>
+      </section>
+
+      <!-- Bento-сводка -->
+      <section id="bento-section" class="relative z-20 bg-obsidian px-5 pt-6 pb-28 space-y-4">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-gold">Executive Summary</span>
+            <h2 class="font-serif text-2xl text-white">Ключевые показатели</h2>
+          </div>
+          <span id="country-price-level" class="glass px-3 py-1 rounded-full text-xs text-gold font-medium">$$$</span>
+        </div>
+
+        <!-- Сезоны -->
+        <div class="glass rounded-3xl p-5 space-y-4">
+          <div class="flex justify-between items-start gap-2">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shrink-0">
+                <i data-lucide="sun-medium" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-white">Лучшие сезоны</h3>
+                <p id="season-summary" class="text-xs text-platinum"></p>
+              </div>
+            </div>
+            <span id="season-badge" class="px-2.5 py-1 rounded-full text-[10px] font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0"></span>
+          </div>
+          <div id="temp-grid" class="grid grid-cols-2 gap-2.5 pt-1"></div>
+          <div>
+            <div class="flex justify-between text-[10px] text-platinum mb-1.5">
+              <span>Годовая карта комфорта</span>
+              <span class="text-gold">■ Лучшие месяцы для визита</span>
+            </div>
+            <div id="months-bar" class="grid grid-cols-12 gap-1 text-center"></div>
+          </div>
+        </div>
+
+        <!-- Виза и Финансы -->
+        <div class="grid grid-cols-2 gap-3.5">
+          <div class="glass rounded-3xl p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] uppercase tracking-wider text-platinum">Виза (для РФ)</span>
+                <i data-lucide="stamp" class="w-4 h-4 text-gold"></i>
+              </div>
+              <div id="visa-status" class="text-sm sm:text-base font-semibold text-white mb-1"></div>
+              <p id="visa-details" class="text-xs text-platinum leading-relaxed"></p>
+            </div>
+            <div class="mt-4 pt-2.5 border-t border-white/5 flex flex-col gap-0.5 text-[11px]">
+              <span class="text-platinum">Загранпаспорт:</span>
+              <span id="visa-passport" class="text-white font-medium"></span>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] uppercase tracking-wider text-platinum">Денежный оборот</span>
+                <i data-lucide="wallet" class="w-4 h-4 text-gold"></i>
+              </div>
+              <div id="currency-name" class="text-sm sm:text-base font-semibold text-white mb-0.5"></div>
+              <div id="currency-rate" class="text-[11px] text-gold mb-2"></div>
+            </div>
+            <div id="payment-methods" class="space-y-1.5 text-[11px] border-t border-white/5 pt-2.5"></div>
+          </div>
+        </div>
+
+        <!-- Приоритеты -->
+        <div class="glass rounded-3xl p-5">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white">Национальные приоритеты</h3>
+              <p class="text-xs text-platinum">Культурный код, безопасность и важные нюансы</p>
+            </div>
+          </div>
+          <ul id="priorities-list" class="space-y-3 text-xs leading-relaxed"></ul>
+        </div>
+
+        <!-- Вердикт -->
+        <div class="rounded-3xl p-5 bg-gradient-to-br from-[#1B1811] via-graphite to-obsidian gold-border">
+          <div class="text-[10px] uppercase tracking-[0.2em] text-gold mb-1">Вердикт MERIDIAN</div>
+          <p id="concierge-verdict" class="font-serif italic text-lg text-white leading-snug"></p>
+        </div>
+      </section>
+
+      <!-- Нижняя панель -->
+      <div class="sticky bottom-0 left-0 right-0 z-30 glass-strong px-5 py-3.5 flex items-center gap-3">
+        <button id="fav-btn" onclick="toggleFavorite()" class="flex-1 bg-gold hover:bg-[#e0bb3e] text-obsidian font-semibold text-xs py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition shadow-lg">
+          <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
+          <span id="fav-btn-text">В шорт-лист для сравнения</span>
+        </button>
+        <button onclick="shareCountry()" class="glass hover:border-gold/50 w-12 h-12 rounded-2xl flex items-center justify-center text-white transition">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- ЭКРАН 3: ШОРТ-ЛИСТ СРАВНЕНИЯ -->
+    <div id="modal-compare" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-xl flex flex-col justify-end">
+      <div class="bg-obsidian border-t border-white/10 rounded-t-[32px] p-6 max-h-[82%] flex flex-col fade-enter">
+        <div class="flex justify-between items-center mb-5">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-gold">Принятие решения</span>
+            <h3 class="font-serif text-2xl text-white">Шорт-лист направлений</h3>
+          </div>
+          <button onclick="closeCompareModal()" class="glass w-9 h-9 rounded-full flex items-center justify-center text-platinum hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="compare-list" class="space-y-3 overflow-y-auto no-scrollbar pr-1 flex-1"></div>
+        <div class="mt-5 pt-4 border-t border-white/10 flex justify-between items-center">
+          <span class="text-xs text-platinum">Выберите страну для просмотра досье</span>
+          <button onclick="closeCompareModal()" class="text-xs text-gold font-medium">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="toast" class="hidden absolute top-20 left-1/2 -translate-x-1/2 z-50 glass gold-border px-4 py-2.5 rounded-full text-xs text-white shadow-2xl flex items-center gap-2 whitespace-nowrap">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>
+      <span id="toast-text">Скопировано</span>
+    </div>
+
+  </div>
+
+  <script>
+    // СПИСОК РАЗРЕШЕННЫХ ПЕРСОНАЛЬНЫХ КЛЮЧЕЙ ДЛЯ ДРУЗЕЙ
+    const VALID_INVITE_CODES = ['FOUNDER', 'VIP-01', 'VIP-02', 'VIP-03', 'VIP-04', 'VIP-05'];
+
+    function unlockApp() {
+      const input = document.getElementById('invite-input').value.trim().toUpperCase();
+      const err = document.getElementById('invite-error');
+
+      if (VALID_INVITE_CODES.includes(input)) {
+        err.classList.add('hidden');
+        document.getElementById('screen-gate').classList.add('hidden');
+        document.getElementById('watermark-code').textContent = input;
+        document.getElementById('watermark-bar').classList.remove('hidden');
+        showToast(`Добро пожаловать! Ключ: ${input}`);
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    const u = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=85`;
+
+    const COUNTRIES = {
+      vietnam: {
+        id: 'vietnam', region: 'asia', name: 'Вьетнам', flag: '🇻🇳',
+        priceLevel: '$$ • Выгодно / Люкс-резорты',
+        tagline: 'Изумрудные скалы бухты Халонг, пляжные виллы Фукуока и французский шарм Индокитая',
+        seasonSummary: 'Ноябрь–Апрель (о. Фукуок и Юг), Февраль–Август (Нячанг и Дананг)',
+        seasonBadge: 'Сезон на Фукуоке', bestMonths: [1, 2, 3, 4, 5, 11, 12],
+        temps: [
+          { region: 'о. Фукуок / Хошимин', value: '+30°C днем • Море +28°C' },
+          { region: 'Нячанг / Дананг', value: '+26°C...+31°C • Вода +26°C' }
+        ],
+        visaStatus: 'Без визы (45 дней)',
+        visaDetails: 'Бесплатный штамп на границе на 45 дней. Для длительного визита легко оформляется E-Visa онлайн на 90 дней ($25).',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Вьетнамский донг (VND, ₫)', currencyRate: '1 USD ≈ 25 300 ₫ • 10 000 ₫ ≈ 39 ₽',
+        payments: [
+          { label: 'Карты «Мир» (Банкоматы VRB)', status: 'Снятие наличных', ok: true },
+          { label: 'Наличные USD ($100 новые)', status: 'Меняют везде выгодно', ok: true },
+          { label: 'Иностранные карты', status: 'Отели, ТЦ, Grab', ok: true }
+        ],
+        priorities: [
+          { title: 'Прием российских карт «Мир»', desc: 'В банкоматах совместного банка VRB (Ханой, Хошимин, Нячанг, Дананг) можно снимать донги с карт «Мир».' },
+          { title: 'Три разные климатические зоны', desc: 'Зимой солнечная погода и штиль ждут на острове Фукуок и в Муйне, а с весны до осени — в Нячанге и Дананге.' },
+          { title: 'Безопасность и приложение Grab', desc: 'Для такси и доставки используйте Grab. При переходе улицы в потоке байков идите плавно и предсказуемо — вас объедут.' }
+        ],
+        verdict: '«Пятизвездочные резорты мировых сетей (Regent, InterContinental, Six Senses) по ценам вдвое доступнее соседей и полные 45 дней без виз».',
+        photos: [
+          { url: u('1528127269322-539801943592'), caption: 'Бухта Халонг • Тысячи карстовых островов в изумрудных водах' },
+          { url: u('1559592413-7cec4d0cae2b'), caption: 'Дананг • Знаменитый Золотой мост в горах Бана Хиллс' },
+          { url: u('1583417319070-4a69db38a482'), caption: 'Остров Фукуок • Белоснежные пляжи с кокосовыми пальмами' }
+        ]
+      },
+
+      china: {
+        id: 'china', region: 'asia', name: 'Китай', flag: '🇨🇳',
+        priceLevel: '$$ • Умеренно / Люкс',
+        tagline: 'Цифровая сверхдержава, древние династии и неземные ландшафты',
+        seasonSummary: 'Апрель–Май и Сентябрь–Ноябрь (Материк), Круглый год (о. Хайнань)',
+        seasonBadge: 'Отличный сезон', bestMonths: [4, 5, 9, 10, 11],
+        temps: [
+          { region: 'Пекин / Шанхай', value: '+16°C...+24°C (Весна/Осень)' },
+          { region: 'Остров Хайнань', value: '+28°C • Вода +26°C' }
+        ],
+        visaStatus: 'Виза / Хайнань без визы',
+        visaDetails: 'Без визы: о. Хайнань (30 дней), Гонконг (14 дней), Макао (30 дней) или тургруппы. На материк индивидуально — виза.',
+        visaPassport: 'От 6 мес. с даты выезда',
+        currencyName: 'Юань (CNY, ¥)', currencyRate: '1 USD ≈ 7.2 ¥ • 1 ¥ ≈ 13.5 ₽',
+        payments: [
+          { label: 'Alipay / WeChat Pay', status: 'Обязательны везде', ok: true },
+          { label: 'UnionPay (РСХБ / АТБ)', status: 'Принимают', ok: true },
+          { label: 'Наличные юани', status: 'Принимают везде', ok: true }
+        ],
+        priorities: [
+          { title: 'Тотальная цифровизация и QR-коды', desc: 'Даже такси и кофе оплачиваются через Alipay/WeChat. Кошелек Alipay легко пополняется из РФ.' },
+          { title: 'Великий китайский файрвол', desc: 'Telegram, WhatsApp и Google работают только с заранее установленным VPN или туристической eSIM.' },
+          { title: 'Высочайшая безопасность', desc: 'Улицы абсолютно безопасны 24/7. Скоростные поезда идут 350 км/ч — билеты привязаны к паспорту.' }
+        ],
+        verdict: '«Впечатляющий контраст киберпанка Шанхая, парящих гор Аватара в Чжанцзяцзе и тропических бухт Хайнаня».',
+        photos: [
+          { url: u('1508804185872-d7badad00f7d'), caption: 'Великая Китайская стена • Участок Мутяньюй на рассвете' },
+          { url: u('1548919973-5cef591cdbc9'), caption: 'Шанхай • Футуристическая панорама района Пудун' },
+          { url: u('1513415277900-a62401e19be4'), caption: 'Национальный парк Чжанцзяцзе • Парящие скалы' }
+        ]
+      },
+
+      maldives: {
+        id: 'maldives', region: 'asia', name: 'Мальдивы', flag: '🇲🇻',
+        priceLevel: '$$$$ • Ультра-люкс',
+        tagline: 'Приватные острова-резорты, водные виллы и эталонный океан',
+        seasonSummary: 'Ноябрь–Апрель (Сухой солнечный муссон Ируваи)',
+        seasonBadge: 'Высокий сезон', bestMonths: [1, 2, 3, 4, 11, 12],
+        temps: [
+          { region: 'Атоллы (Воздух)', value: '+30°C днем / +26°C ночью' },
+          { region: 'Индийский океан', value: 'Вода +28.5°C • Прозрачность 40м' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Бесплатный штамп по прибытии. За 96 часов до визита заполняется электронная декларация IMUGA.',
+        visaPassport: 'От 1 мес. с даты въезда',
+        currencyName: 'Руфия (MVR) / USD', currencyRate: 'Везде расчет в USD ($)',
+        payments: [
+          { label: 'Наличные USD (от 2013 г.)', status: 'Принимают везде', ok: true },
+          { label: 'Иностранные Visa/MC', status: 'Все резорты', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Концепция «Один остров — один отель»', desc: 'На частных островах-резортах действуют светские правила, абсолютная приватность и высокий сервис.' },
+          { title: 'Строгий запрет на ввоз алкоголя', desc: 'Алкоголь нельзя ввозить в багаже даже из Duty Free. На резортах он доступен в барах и ресторанах без ограничений.' },
+          { title: 'Охрана кораллового рифа', desc: 'Запрещено поднимать со дна раковины и кораллы, а также трогать морских черепах.' }
+        ],
+        verdict: '«Безальтернативный стандарт тропического уединения, приватных лагун и нулевой визовой бюрократии».',
+        photos: [
+          { url: u('1514282401047-d79a71a590e8'), caption: 'Атолл Баа • Приватные водные виллы над лагуной' },
+          { url: u('1573843981267-be1999ff37cd'), caption: 'Индийский океан • Белоснежные песчаные отмели' },
+          { url: u('1540202404-a2f29016b523'), caption: 'Закат над домашним коралловым рифом' }
+        ]
+      },
+
+      indonesia: {
+        id: 'indonesia', region: 'asia', name: 'Индонезия (Бали)', flag: '🇮🇩',
+        priceLevel: '$$ • Комфорт / Бутик-виллы',
+        tagline: 'Остров богов, океанский серфинг, джунгли Убуда и вулканы',
+        seasonSummary: 'Апрель–Октябрь (Сухой сезон), круглогодичный серфинг',
+        seasonBadge: 'Тропическое тепло', bestMonths: [4, 5, 6, 7, 8, 9, 10],
+        temps: [
+          { region: 'Побережье (Улувату / Чангу)', value: '+30°C • Вода +28°C' },
+          { region: 'Убуд (Джунгли)', value: '+27°C днем / +22°C ночью' }
+        ],
+        visaStatus: 'Виза по прибытии (VoA)',
+        visaDetails: 'Оформляется на границе или онлайн (e-VoA) на 30 дней (~$35) с правом продления еще на 30 дней.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Рупия (IDR, Rp)', currencyRate: '1 USD ≈ 15 700 Rp',
+        payments: [
+          { label: 'Иностранные карты', status: 'Повсеместно', ok: true },
+          { label: 'UnionPay (РСХБ / АТБ)', status: 'Работает', ok: true },
+          { label: 'Наличные USD (новые)', status: 'Обмен везде', ok: true }
+        ],
+        priorities: [
+          { title: 'Духовная культура Бали', desc: 'Остров живет по церемониальному календарю. Подношения (чананг) лежат на тротуарах — наступать на них нельзя.' },
+          { title: 'Культура байков и личных водителей', desc: 'Из-за узких дорог лучше арендовать байк или комфортный минивэн с водителем на весь день.' },
+          { title: 'Уважение к храмам', desc: 'Вход в храмы строго в саронге. Священные деревья и вулканы почитаются местными жителями.' }
+        ],
+        verdict: '«Мировая столица стильных бич-клабов, спа-ретритов в джунглях Убуда и мощной океанской волны».',
+        photos: [
+          { url: u('1537996194471-e657df975ab4'), caption: 'Бали • Изумрудные рисовые террасы Тегаллаланг в Убуде' },
+          { url: u('1518548419970-58e3b4079ab2'), caption: 'Остров Нуса-Пенида • Утесы пляжа Келингкинг' },
+          { url: u('1555400038-63f5ba517a47'), caption: 'Озеро Братан • Водный храм Улун Дану' }
+        ]
+      },
+
+      south_korea: {
+        id: 'south_korea', region: 'asia', name: 'Южная Корея', flag: '🇰🇷',
+        priceLevel: '$$$ • Премиум',
+        tagline: 'Ультрасовременный Сеул, бьюти-индустрия, K-culture и древние дворцы',
+        seasonSummary: 'Апрель–Май (Весна) и Сентябрь–Ноябрь (Золотая осень)',
+        seasonBadge: 'Осенний сезон', bestMonths: [4, 5, 9, 10, 11],
+        temps: [
+          { region: 'Сеул / Пусан', value: '+15°C...+23°C (Весна/Осень)' },
+          { region: 'Остров Чеджу', value: '+18°C...+25°C • Мягкий климат' }
+        ],
+        visaStatus: 'Без визы (с K-ETA)',
+        visaDetails: 'До 60 дней без визы. Заранее до поездки оформляется электронное разрешение K-ETA онлайн (~$8).',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Вона (KRW, ₩)', currencyRate: '1 USD ≈ 1 380 ₩ • 1000 ₩ ≈ 70 ₽',
+        payments: [
+          { label: 'Иностранные Visa/MC', status: 'Принимают везде', ok: true },
+          { label: 'Карта Wowpass / T-Money', status: 'Удобно для туристов', ok: true },
+          { label: 'Наличные USD -> Воны', status: 'Обмен на Мёндоне', ok: true }
+        ],
+        priorities: [
+          { title: 'Локальная навигация Naver Map', desc: 'Google Карты работают ограниченно — используйте Naver Map или KakaoMap и приложение Kakao T для такси.' },
+          { title: 'Безопасность 24/7', desc: 'Вещи можно оставить на столике в кафе — их никто не тронет. Клиники и сервис работают безупречно.' },
+          { title: 'Гастрономический этикет', desc: 'Закуски (панчхан) и воду в ресторанах приносят и пополняют бесплатно. Чаевые не приняты.' }
+        ],
+        verdict: '«Идеальное направление для шопинга, чекапов красоты, гастрономии и погружения в мегаполис будущего».',
+        photos: [
+          { url: u('1517154421773-0529f29ea451'), caption: 'Сеул • Императорский дворец Кёнбоккун на фоне небоскребов' },
+          { url: u('1538485399081-7191377e8241'), caption: 'Сеул • Огни ночного мегаполиса и башня Намсан' },
+          { url: u('1546874177-9e664107314e'), caption: 'Деревня ханоков Букчон • Традиционная архитектура' }
+        ]
+      },
+
+      japan: {
+        id: 'japan', region: 'asia', name: 'Япония', flag: '🇯🇵',
+        priceLevel: '$$$ • Премиум',
+        tagline: 'Империя высокой эстетики, технологий и древних традиций',
+        seasonSummary: 'Март–Май (Сакура) и Октябрь–Ноябрь (Красные клены момидзи)',
+        seasonBadge: 'Идеально сейчас', bestMonths: [3, 4, 5, 10, 11],
+        temps: [
+          { region: 'Токио / Киото', value: '+17°C днем / +10°C ночью' },
+          { region: 'Окинава', value: '+24°C • Вода +23°C' }
+        ],
+        visaStatus: 'Нужна виза',
+        visaDetails: 'Бесплатный консульский сбор для граждан РФ. Оформление за 4–7 рабочих дней в консульстве.',
+        visaPassport: 'Действителен на поездку',
+        currencyName: 'Иена (JPY, ¥)', currencyRate: '1 USD ≈ 152 ¥ • 100 ¥ ≈ 64 ₽',
+        payments: [
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false },
+          { label: 'Иностранные Visa/MC', status: 'Везде', ok: true },
+          { label: 'Наличные Иены', status: 'Нужны в храмах', ok: true }
+        ],
+        priorities: [
+          { title: 'Абсолютная безопасность', desc: 'Один из самых низких уровней преступности в мире — комфортно гулять в любое время суток.' },
+          { title: 'Культура без чаевых', desc: 'Оставлять чаевые не принято и может поставить персонал в неловкое положение.' },
+          { title: 'Культ тишины и точности', desc: 'В поездах не разговаривают по телефону. Скоростные поезда Синкансэн ходят с точностью до секунды.' }
+        ],
+        verdict: '«Безупречный выбор, если вы ищете максимальную безопасность, гастрономию Michelin и смену культурной оптики».',
+        photos: [
+          { url: u('1493976040374-85c8e12f0c0e'), caption: 'Киото • Исторический квартал Хигасияма и пагода Ясака' },
+          { url: u('1503899036084-c55cdd92da26'), caption: 'Токио • Неоновый пульс вечернего Синдзюку' },
+          { url: u('1528164344705-475426879c0d'), caption: 'Префектура Яманаси • Вид на священную гору Фудзи' }
+        ]
+      },
+
+      thailand: {
+        id: 'thailand', region: 'asia', name: 'Таиланд', flag: '🇹🇭',
+        priceLevel: '$$ • Комфорт / Люкс-виллы',
+        tagline: 'Тропическая экзотика, приватные острова и философия релакса',
+        seasonSummary: 'Ноябрь–Март (Сухой и солнечный высокий сезон)',
+        seasonBadge: 'Высокий сезон', bestMonths: [1, 2, 3, 11, 12],
+        temps: [
+          { region: 'Пхукет / Самуи', value: '+30°C днем • Вода +29°C' },
+          { region: 'Бангкок', value: '+31°C днем / +24°C ночью' }
+        ],
+        visaStatus: 'Без визы (60 дней)',
+        visaDetails: 'Свободный въезд по штампу на границе с возможностью продления еще на 30 дней.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Тайский бат (THB, ฿)', currencyRate: '1 USD ≈ 34 ฿ • 1 ฿ ≈ 2.9 ₽',
+        payments: [
+          { label: 'UnionPay (РСХБ / АТБ)', status: 'ТЦ, отели и банкоматы', ok: true },
+          { label: 'Наличные USD (новые)', status: 'Лучший курс обмена', ok: true },
+          { label: 'Локальные рынки', status: 'Наличные баты', ok: true }
+        ],
+        priorities: [
+          { title: 'Почтение к монархии', desc: 'Королевская семья пользуется абсолютным уважением; критика или порча купюр незаконны.' },
+          { title: 'Запрет на вейпы', desc: 'Ввоз и использование электронных сигарет в Таиланде официально запрещены.' },
+          { title: 'Философия «Сабай»', desc: 'В общении ценится мягкая улыбка и спокойствие; повышение голоса приводит к потере лица.' }
+        ],
+        verdict: '«Классика зимнего отдыха у теплого океана со свежими морепродуктами, спа-культурой и роскошными виллами».',
+        photos: [
+          { url: u('1552465011-b4e21bf6e79a'), caption: 'Провинция Краби • Изумрудные лагуны и скалы' },
+          { url: u('1528181304800-259b08848526'), caption: 'Северный Таиланд • Древние храмовые комплексы' },
+          { url: u('1508009603885-50cf7c579365'), caption: 'Бангкок • Панорамные руфтоп-бары над мегаполисом' }
+        ]
+      },
+
+      serbia: {
+        id: 'serbia', region: 'europe', name: 'Сербия', flag: '🇷🇸',
+        priceLevel: '$$ • Умеренно',
+        tagline: 'Гостеприимные Балканы, богемный Белград, винодельни Воеводины и каньоны',
+        seasonSummary: 'Апрель–Октябрь (Прогулки и винодельни), Декабрь–Март (Горные лыжи Копаоник)',
+        seasonBadge: 'Безвизовая Европа', bestMonths: [4, 5, 6, 9, 10],
+        temps: [
+          { region: 'Белград / Нови-Сад', value: '+12°C...+24°C (Весна/Осень)' },
+          { region: 'Копаоник (Зима)', value: '-2°C...-6°C • Горные лыжи' }
+        ],
+        visaStatus: 'Без визы (30 дней)',
+        visaDetails: 'Свободный въезд по загранпаспорту. Отель оформляет регистрацию («белый картон») в первые 24 часа.',
+        visaPassport: 'Действителен на поездку',
+        currencyName: 'Динар (RSD)', currencyRate: '1 EUR ≈ 117 RSD • 1 RSD ≈ 0.9 ₽',
+        payments: [
+          { label: 'Наличные Евро (EUR)', status: 'Меняют на каждом шагу', ok: true },
+          { label: 'Иностранные карты', status: 'Принимают везде', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Исключительное дружелюбие', desc: 'Одна из самых теплых к россиянам стран Европы с близким менталитетом и понятным языком.' },
+          { title: 'Культ «Полако»', desc: 'Неспешный ритм жизни, долгие ужины в исторических кафанах Скадарлии и локальные вина.' },
+          { title: 'Аутентичная гастрономия', desc: 'Огромные порции блюд на гриле, фермерские сыры и семейные винодельни Фрушка-Горы.' }
+        ],
+        verdict: '«Открытая и душевная европейская страна без визовых формальностей — идеальна для гастрономического уикенда».',
+        photos: [
+          { url: u('1587974928442-77dc3e0dba72'), caption: 'Белград • Крепость Калемегдан у слияния Савы и Дуная' },
+          { url: u('1565689157206-0fddef7589a2'), caption: 'Белград • Величественный Храм Святого Саввы' },
+          { url: u('1513635269975-59663e0ac1ad'), caption: 'Старый Земун • Черепичные крыши и набережная Дуная' }
+        ]
+      },
+
+      turkey: {
+        id: 'turkey', region: 'europe', name: 'Турция', flag: '🇹🇷',
+        priceLevel: '$$–$$$ • Комфорт / Люкс',
+        tagline: 'Имперский Стамбул, бирюзовые бухты Бодрума и воздушные шары Каппадокии',
+        seasonSummary: 'Апрель–Ноябрь (Стамбул и Каппадокия), Май–Октябрь (Побережье)',
+        seasonBadge: 'Сезон Стамбула', bestMonths: [4, 5, 6, 7, 8, 9, 10],
+        temps: [
+          { region: 'Стамбул / Каппадокия', value: '+15°C...+25°C (Весна/Осень)' },
+          { region: 'Анталья / Бодрум', value: '+22°C...+32°C • Море до ноября' }
+        ],
+        visaStatus: 'Без визы (60 дней)',
+        visaDetails: 'Безвизовый въезд до 60 дней подряд (суммарно до 90 дней за полгода).',
+        visaPassport: 'От 120 дней с даты въезда',
+        currencyName: 'Турецкая лира (TRY, ₺)', currencyRate: '1 USD ≈ 34.3 ₺ • 1 ₺ ≈ 2.85 ₽',
+        payments: [
+          { label: 'Приложение Letim / QR', status: 'Оплата из РФ и снятие', ok: true },
+          { label: 'Наличные USD и EUR', status: 'Принимают везде', ok: true },
+          { label: 'Иностранные Visa/MC', status: 'Без ограничений', ok: true }
+        ],
+        priorities: [
+          { title: 'Разнообразие премиум-форматов', desc: 'От аренды частной яхты (гулеты) в Гёджеке и отелей Бодрума до гастро-туров по Стамбулу.' },
+          { title: 'Культура базаров и торга', desc: 'На Гранд-базаре и в частных лавках торг — часть традиционного восточного этикета.' },
+          { title: 'Вызов такси через приложения', desc: 'В Стамбуле используйте BiTaksi или Uber для поездок строго по таксометру.' }
+        ],
+        verdict: '«Богатейшее культурное наследие Византии и Османской империи в сочетании с маринами и бутик-отелями Эгейского моря».',
+        photos: [
+          { url: u('1524231757912-21f4fe3a7200'), caption: 'Стамбул • Панорама пролива Босфор и мечети на закате' },
+          { url: u('1641128324972-af3212f0f6bd'), caption: 'Каппадокия • Рассвет воздушных шаров над долиной Гёреме' },
+          { url: u('1540959733332-eab4deabeeaf'), caption: 'Эгейское побережье • Бирюзовые бухты Бодрума и Фетхие' }
+        ]
+      },
+
+      italy: {
+        id: 'italy', region: 'europe', name: 'Италия', flag: '🇮🇹',
+        priceLevel: '$$$ • Премиум',
+        tagline: 'Искусство красивой жизни, великая архитектура и гастрономия',
+        seasonSummary: 'Апрель–Июнь и Сентябрь–Октябрь (Бархатный сезон)',
+        seasonBadge: 'Культурный сезон', bestMonths: [4, 5, 6, 9, 10],
+        temps: [
+          { region: 'Рим / Флоренция', value: '+18°C днем / +10°C ночью' },
+          { region: 'Амальфи / Сицилия', value: '+21°C • Мягкая осень' }
+        ],
+        visaStatus: 'Шенгенская виза',
+        visaDetails: 'Оформление через визовый центр по предварительной записи (рассмотрение 15–40 дней).',
+        visaPassport: 'От 3 мес. после выезда',
+        currencyName: 'Евро (EUR, €)', currencyRate: '1 EUR ≈ 1.08 USD • 1 € ≈ 105 ₽',
+        payments: [
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false },
+          { label: 'Иностранные Visa/MC', status: 'Повсеместно', ok: true },
+          { label: 'Наличные Евро', status: 'Принимают везде', ok: true }
+        ],
+        priorities: [
+          { title: 'Дневной перерыв Riposo', desc: 'С 14:30 до 19:00 большинство традиционных ресторанов закрываются между обедом и ужином.' },
+          { title: 'Сервисный сбор Coperto', desc: 'В счет ресторана автоматически включается 2–5 € с гостя за хлеб и сервировку.' },
+          { title: 'Зоны ZTL в центрах городов', desc: 'Въезд на арендованном авто в исторические кварталы без спецпропуска штрафуется камерами.' }
+        ],
+        verdict: '«Эталонное направление для эстетов: закрытые винодельни Тосканы, виллы озера Комо и вечная классика Рима».',
+        photos: [
+          { url: u('1533105079780-92b9be482077'), caption: 'Побережье Амальфи • Каскадные виллы Позитано' },
+          { url: u('1516483638261-f4dbaf036963'), caption: 'Лигурия • Скалистые бухты Чинкве-Терре' },
+          { url: u('1552832230-c0197dd311b5'), caption: 'Рим • Величие античного Колизея на закате' }
+        ]
+      },
+
+      dominicana: {
+        id: 'dominicana', region: 'latam', name: 'Доминикана', flag: '🇩🇴',
+        priceLevel: '$$$ • Премиум-резорты',
+        tagline: 'Карибский рай, белоснежные пляжи Пунта-Каны, горбатые киты и ритмы бачаты',
+        seasonSummary: 'Ноябрь–Апрель (Сухой сезон), Январь–Март (Сезон китов в Самане)',
+        seasonBadge: 'Высокий сезон', bestMonths: [1, 2, 3, 4, 11, 12],
+        temps: [
+          { region: 'Пунта-Кана / Кап-Кана', value: '+29°C днем / +23°C ночью' },
+          { region: 'Карибское море', value: 'Вода +27.5°C • Круглый год' }
+        ],
+        visaStatus: 'Без визы (60 дней)',
+        visaDetails: 'Свободный въезд. Перед поездкой заполняется бесплатная электронная анкета E-Ticket (QR-код).',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Песо (DOP) / USD', currencyRate: '1 USD ≈ 60 DOP • Везде ходят $',
+        payments: [
+          { label: 'Наличные USD ($)', status: 'Принимают везде', ok: true },
+          { label: 'Иностранные Visa/MC', status: 'Все отели и ТЦ', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Закрытые резиденции Кап-Кана', desc: 'Приватные марины, гольф-поля мирового класса и пятизвездочные резорты с полной безопасностью.' },
+          { title: 'Шоу горбатых китов', desc: 'Зимой в залив Самана приплывают сотни горбатых китов — незабываемая морская экспедиция.' },
+          { title: 'Налог в ресторанах', desc: 'В заведениях вне отелей к счету автоматически добавляется 28% (налог + сервис).' }
+        ],
+        verdict: '«Пальмовые рощи с открытки, бирюзовая вода, выдержанный ром и расслабленный карибский шик без виз».',
+        photos: [
+          { url: u('1580541631950-7282082b53ce'), caption: 'Остров Саона • Нетронутые кокосовые рощи Карибского моря' },
+          { url: u('1544551763-46a013bb70d5'), caption: 'Пунта-Кана • Белоснежный коралловый песок пляжа Баваро' },
+          { url: u('1590523741831-ab7e8b8f9c7f'), caption: 'Полуостров Самана • Приватные бухты и холмы' }
+        ]
+      },
+
+      mexico: {
+        id: 'mexico', region: 'latam', name: 'Мексика', flag: '🇲🇽',
+        priceLevel: '$$$ • Премиум',
+        tagline: 'Бохо-шик Тулума, сеноты Юкатана, пирамиды майя и высокая гастрономия',
+        seasonSummary: 'Ноябрь–Апрель (Сухой солнечный сезон без дождей)',
+        seasonBadge: 'Идеально сейчас', bestMonths: [1, 2, 3, 4, 11, 12],
+        temps: [
+          { region: 'Канкун / Тулум', value: '+28°C • Вода +27°C' },
+          { region: 'Мехико', value: '+23°C днем / +10°C ночью' }
+        ],
+        visaStatus: 'Электронное разрешение',
+        visaDetails: 'За 5 минут бесплатно оформляется онлайн-разрешение (SAE) или въезд по действующей визе США/Шенгена.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Мексиканское песо (MXN)', currencyRate: '1 USD ≈ 20 MXN • 1 MXN ≈ 5 ₽',
+        payments: [
+          { label: 'Наличные USD и Евро', status: 'Легкий обмен везде', ok: true },
+          { label: 'Иностранные карты', status: 'Повсеместно', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Древние сеноты и богемный Тулум', desc: 'Утром — плавание в подземных карстовых озерах и пирамиды майя, вечером — дизайнерские бич-клабы.' },
+          { title: 'Гастрономия мирового уровня', desc: 'Мехико входит в топ гастрономических столиц планеты со множеством ресторанов из списка 50 Best.' },
+          { title: 'Подтверждение маршрута на границе', desc: 'Имейте при себе распечатанные ваучеры отелей и обратный маршрут для паспортного контроля.' }
+        ],
+        verdict: '«Одно из самых стильных направлений мира: от бирюзовых лагун Тулума до музеев и ресторанов Мехико».',
+        photos: [
+          { url: u('1518638150340-f706e86654de'), caption: 'Юкатан • Древняя пирамида Кукулькана в Чичен-Ице' },
+          { url: u('1504730655501-24c39ac53f0e'), caption: 'Тулум • Руины майя на утесе над Карибским морем' },
+          { url: u('1568402102990-bc541580b59f'), caption: 'Священный сенот Ик-Киль • Кристальная подземная вода' }
+        ]
+      },
+
+      argentina: {
+        id: 'argentina', region: 'latam', name: 'Аргентина', flag: '🇦🇷',
+        priceLevel: '$$ • Выгодно с наличными',
+        tagline: 'Европейский лоск Буэнос-Айреса, ледники Патагонии, танго и великие стейки',
+        seasonSummary: 'Октябрь–Апрель (Теплый сезон в Южном полушарии — открыта Патагония)',
+        seasonBadge: 'Идеально сейчас', bestMonths: [1, 2, 3, 10, 11, 12],
+        temps: [
+          { region: 'Буэнос-Айрес / Мендоса', value: '+25°C днем / +16°C ночью' },
+          { region: 'Патагония / Ушуайя', value: '+14°C • Свежее лето' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Свободный въезд по штампу на границе до 90 дней без сборов и анкет.',
+        visaPassport: 'Действителен на поездку',
+        currencyName: 'Песо (ARS) / Наличные USD', currencyRate: 'Выгодный курс для купюр $100',
+        payments: [
+          { label: 'Наличные USD ($100 новые)', status: 'Максимально выгодно', ok: true },
+          { label: 'Иностранные Visa/MC', status: 'По курсу MEP', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Преимущество наличных $100', desc: 'Купюры по 100 долларов нового образца меняют по самому выгодному курсу.' },
+          { title: 'Культ стейков Asado и вина Мальбек', desc: 'Мясные рестораны Палермо и винодельни Мендосы у подножия Анд дарят эталонный гастро-опыт.' },
+          { title: 'Поздний ритм Буэнос-Айреса', desc: 'Ужинать в столице принято садиться после 21:00, а жизнь в барах кипит до утра.' }
+        ],
+        verdict: '«Южноамериканский Париж в сочетании с первозданной мощью ледника Перито-Морено и водопадов Игуасу».',
+        photos: [
+          { url: u('1589909202802-8f4aadce1849'), caption: 'Патагония • Гранитные пики массива Фицрой на рассвете' },
+          { url: u('1612294037637-ec328d0e075e'), caption: 'Парк Лос-Гласьярес • Гигантский ледник Перито-Морено' },
+          { url: u('1586339277861-b0b895343ba5'), caption: 'Буэнос-Айрес • Вечерняя архитектура и атмосфера танго' }
+        ]
+      },
+
+      brazil: {
+        id: 'brazil', region: 'latam', name: 'Бразилия', flag: '🇧🇷',
+        priceLevel: '$$–$$$ • Комфорт / Премиум',
+        tagline: 'Энергия Рио-де-Жанейро, мощь водопадов Игуасу, дюны Ленсойс и Амазония',
+        seasonSummary: 'Сентябрь–Апрель (Теплый солнечный сезон), Февраль (Карнавал)',
+        seasonBadge: 'Отличный сезон', bestMonths: [1, 2, 3, 9, 10, 11, 12],
+        temps: [
+          { region: 'Рио-де-Жанейро', value: '+28°C днем • Океан +24°C' },
+          { region: 'Водопады Игуасу', value: '+27°C • Тропики' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Бесплатный въезд по загранпаспорту до 90 дней без анкет.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Бразильский реал (BRL, R$)', currencyRate: '1 USD ≈ 5.7 R$ • 1 R$ ≈ 17 ₽',
+        payments: [
+          { label: 'Иностранные Visa/MC', status: 'Принимают везде', ok: true },
+          { label: 'Наличные USD -> Реалы', status: 'В обменниках Cambio', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Невероятная панорама с вертолета', desc: 'Облет статуи Христа-Искупителя, бухты Рио и водопадов Игуасу — одно из сильнейших впечатлений в мире.' },
+          { title: 'Престижные районы Леблон и Ипанема', desc: 'Останавливайтесь в лучших береговых кварталах и используйте Uber для комфортных перемещений.' },
+          { title: 'Яркая пляжная культура', desc: 'Побережье Копакабаны и Ипанемы живет спортом, музыкой и океанским бризом.' }
+        ],
+        verdict: '«Чистый витальный драйв, фантастический рельеф Рио и масштаб дикой природы без визовых преград».',
+        photos: [
+          { url: u('1483729558449-99ef09a8c325'), caption: 'Рио-де-Жанейро • Панорама бухты и гора Сахарная Голова' },
+          { url: u('1516306580123-e6e52b1b7b5f'), caption: 'Статуя Христа-Искупителя на вершине горы Корковаду' },
+          { url: u('1544989164-31dc3c645987'), caption: 'Национальный парк Игуасу • Каскады водопадов' }
+        ]
+      },
+
+      peru: {
+        id: 'peru', region: 'latam', name: 'Перу', flag: '🇵🇪',
+        priceLevel: '$$–$$$ • Экспедиционный люкс',
+        tagline: 'Затерянный город инков Мачу-Пикчу, Священная долина и высокая кухня Лимы',
+        seasonSummary: 'Апрель–Ноябрь (Сухой сезон в Андах), Декабрь–Март (Побережье Лимы)',
+        seasonBadge: 'Доступно круглый год', bestMonths: [4, 5, 6, 7, 8, 9, 10],
+        temps: [
+          { region: 'Лима (Океан)', value: '+22°C днем / +17°C ночью' },
+          { region: 'Куско / Мачу-Пикчу', value: '+19°C днем / +6°C ночью' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Безвизовый въезд по загранпаспорту до 90 дней.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Перуанский соль (PEN) / USD', currencyRate: '1 USD ≈ 3.75 PEN • Ходят и $',
+        payments: [
+          { label: 'Наличные USD (новые)', status: 'Принимают и меняют', ok: true },
+          { label: 'Иностранные карты', status: 'Отели, поезда, рестораны', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Плавная акклиматизация в Андах', desc: 'В первые дни в горах рекомендуется остановиться в более низкой Священной долине инков.' },
+          { title: 'Панорамные поезда к Мачу-Пикчу', desc: 'Билеты в цитадель и места в поездах Belmond Hiram Bingham или Vistadome бронируйте заранее.' },
+          { title: 'Лима — столица мировой гастрономии', desc: 'Рестораны Central и Maido в Лиме возглавляют мировые рейтинги The World’s 50 Best.' }
+        ],
+        verdict: '«Путешествие-инициация: мистика империи Инков, роскошные поезда в Андах и лучшая авторская кухня мира».',
+        photos: [
+          { url: u('1526392060635-9d6019884377'), caption: 'Анды • Древняя цитадель инков Мачу-Пикчу в облаках' },
+          { url: u('1587595431973-160d0d94add1'), caption: 'Гора Виникунка • Радужные склоны Перуанских Анд' },
+          { url: u('1531968455001-5c5272a41129'), caption: 'Священная долина инков и колониальный Куско' }
+        ]
+      },
+
+      uae: {
+        id: 'uae', region: 'mena', name: 'ОАЭ', flag: '🇦🇪',
+        priceLevel: '$$$ • Люкс',
+        tagline: 'Футуристический оазис роскоши, сервиса и деловой динамики',
+        seasonSummary: 'Октябрь–Апрель (Идеальный пляжный и городской климат)',
+        seasonBadge: 'Идеально сейчас', bestMonths: [1, 2, 3, 4, 10, 11, 12],
+        temps: [
+          { region: 'Дубай / Абу-Даби', value: '+29°C днем / +21°C ночью' },
+          { region: 'Персидский залив', value: 'Вода +27°C • Комфорт' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Бесплатный штамп ставится на паспортном контроле по прибытии.',
+        visaPassport: 'От 6 мес. с даты въезда',
+        currencyName: 'Дирхам (AED)', currencyRate: '1 USD = 3.67 AED (курс фиксирован)',
+        payments: [
+          { label: 'UnionPay (РСХБ / АТБ)', status: 'Работает в ТЦ и отелях', ok: true },
+          { label: 'Иностранные карты', status: 'Везде + Apple Pay', ok: true },
+          { label: 'Наличные USD и Евро', status: 'Обмен везде', ok: true }
+        ],
+        priorities: [
+          { title: 'Безупречный сервис 24/7', desc: 'Один из самых высоких стандартов гостиничного и консьерж-обслуживания в мире.' },
+          { title: 'Уважение к местному этикету', desc: 'В моллах и общественных местах уместен элегантный стиль одежды.' },
+          { title: 'Абсолютная безопасность', desc: 'Дубай и Абу-Даби стабильно входят в топ-5 самых безопасных городов планеты.' }
+        ],
+        verdict: '«Максимальный комфорт без виз: теплое море, мировая гастрономия и лучшая инфраструктура для отдыха и шопинга».',
+        photos: [
+          { url: u('1512453979798-5ea266f8880c'), caption: 'Дубай • Панорама небоскребов и Бурдж-Халифа в золотой час' },
+          { url: u('1518684079-3c830dcef090'), caption: 'Абу-Даби • Белоснежная мечеть шейха Зайда' },
+          { url: u('1509316975850-ff9c5deb0cd9'), caption: 'Пустыня Руб-эль-Хали • Приватные оазисы среди дюн' }
+        ]
+      },
+
+      south_africa: {
+        id: 'south_africa', region: 'mena', name: 'ЮАР', flag: '🇿🇦',
+        priceLevel: '$$$ • Премиум-сафари',
+        tagline: 'Океанский Кейптаун, мыс Доброй Надежды, пингвины, киты и сафари «Большой пятерки»',
+        seasonSummary: 'Октябрь–Апрель (Теплое лето в Кейптауне и на винодельнях)',
+        seasonBadge: 'Высокий сезон', bestMonths: [1, 2, 3, 10, 11, 12],
+        temps: [
+          { region: 'Кейптаун / Винодельни', value: '+24°C днем / +15°C ночью' },
+          { region: 'Парк Крюгера (Сафари)', value: '+28°C • Дикая природа' }
+        ],
+        visaStatus: 'Без визы (90 дней)',
+        visaDetails: 'Бесплатный штамп на границе на 90 дней. Часовой пояс почти совпадает с московским.',
+        visaPassport: 'От 30 дней после выезда',
+        currencyName: 'Рэнд (ZAR, R)', currencyRate: '1 USD ≈ 17.8 R • 1 R ≈ 5.5 ₽',
+        payments: [
+          { label: 'Иностранные карты', status: 'Принимают везде', ok: true },
+          { label: 'Наличные USD -> Рэнды', status: 'Обмен в банках', ok: true },
+          { label: 'Карты банков РФ', status: 'Не работают', ok: false }
+        ],
+        priorities: [
+          { title: 'Отсутствие джетлага', desc: 'Разница во времени с Москвой всего 1 час — путешествие проходит без сбоя биоритмов.' },
+          { title: 'Винодельни Стелленбоша и Франшхука', desc: 'Высокая кухня и исторические винные поместья мирового уровня по очень приятным ценам.' },
+          { title: 'Комфортная логистика', desc: 'В Кейптауне останавливаются в районах V&A Waterfront и Camps Bay, передвигаясь на авто с водителем или Uber Black.' }
+        ],
+        verdict: '«Главное открытие для искушенных путешественников: слияние двух океанов, частные сафари-лоджи и великие вина без виз».',
+        photos: [
+          { url: u('1580060839134-75a5edca2e99'), caption: 'Кейптаун • Вид на Столовую гору, Львиную Голову и Атлантику' },
+          { url: u('1516426122078-c23e76319801'), caption: 'Частные резерваты Крюгера • Утреннее сафари Большой пятерки' },
+          { url: u('1576485290814-1c72aa4bbb8e'), caption: 'Стелленбош • Исторические винодельни среди гор' }
+        ]
+      }
+    };
+
+    const MONTH_NAMES = ['Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О', 'Н', 'Д'];
+    let currentCountry = null;
+    let currentPhotoIndex = 0;
+    let favorites = ['vietnam', 'china', 'maldives'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateFavBadge();
+      renderCatalogGrid('all');
+      setupSearch();
+    });
+
+    function filterRegion(region) {
+      document.querySelectorAll('.region-tab').forEach(btn => {
+        if (btn.dataset.region === region) {
+          btn.className = 'region-tab px-3 py-1.5 rounded-full text-xs font-medium bg-gold text-obsidian transition shrink-0';
+        } else {
+          btn.className = 'region-tab glass px-3 py-1.5 rounded-full text-xs text-platinum hover:text-white transition shrink-0';
+        }
+      });
+      renderCatalogGrid(region);
+    }
+
+    function renderCatalogGrid(region) {
+      const grid = document.getElementById('country-catalog-grid');
+      const list = Object.values(COUNTRIES).filter(c => region === 'all' || c.region === region);
+
+      grid.innerHTML = list.map(c => `
+        <button onclick="selectCountry('${c.id}')" class="group relative h-28 rounded-2xl overflow-hidden text-left p-3 flex flex-col justify-between border border-white/10 hover:border-gold/60 transition">
+          <img src="${c.photos[0].url}" alt="${c.name}" class="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent"></div>
+          <div class="relative z-10 flex justify-between items-center w-full">
+            <span class="text-lg">${c.flag}</span>
+            <span class="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[9px] text-gold-light border border-white/10">
+              ${c.visaStatus.includes('Без визы') ? 'Без визы' : c.visaStatus.split(' ')[0]}
+            </span>
+          </div>
+          <div class="relative z-10">
+            <div class="text-sm font-semibold text-white leading-tight">${c.name}</div>
+            <div class="text-[10px] text-gold mt-0.5 truncate">${c.seasonBadge}</div>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    function setupSearch() {
+      const input = document.getElementById('search-input');
+      const dropdown = document.getElementById('search-dropdown');
+      const clearBtn = document.getElementById('clear-search');
+
+      input.addEventListener('input', (e) => {
+        const rawVal = e.target.value.trim();
+        const val = rawVal.toLowerCase();
+        clearBtn.classList.toggle('hidden', val.length === 0);
+        if (val.length === 0) {
+          dropdown.classList.add('hidden');
+          return;
+        }
+        const matches = Object.values(COUNTRIES).filter(c =>
+          c.name.toLowerCase().includes(val) || c.tagline.toLowerCase().includes(val)
+        );
+        renderDropdown(matches, rawVal);
+      });
+    }
+
+    function renderDropdown(list, rawQuery) {
+      const dropdown = document.getElementById('search-dropdown');
+      let html = list.map(c => `
+        <button onclick="selectCountry('${c.id}')" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/5 transition text-left">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">${c.flag}</span>
+            <div>
+              <div class="text-sm font-medium text-white">${c.name}</div>
+              <div class="text-[11px] text-platinum">${c.visaStatus} • ${c.seasonBadge}</div>
+            </div>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold"></i>
+        </button>
+      `).join('');
+
+      if (rawQuery && rawQuery.length >= 2) {
+        const exactMatch = list.some(c => c.name.toLowerCase() === rawQuery.toLowerCase());
+        if (!exactMatch) {
+          const safeName = rawQuery.replace(/['"<>]/g, '');
+          html += `
+            <button onclick="generateDynamicCountry('${safeName}')" class="w-full px-4 py-3 flex items-center justify-between bg-gold/10 hover:bg-gold/20 transition text-left">
+              <div class="flex items-center gap-3">
+                <span class="text-xl">🌍</span>
+                <div>
+                  <div class="text-sm font-medium text-gold">Сформировать досье: «${safeName}»</div>
+                  <div class="text-[11px] text-platinum">Запрос по глобальной базе 195 стран</div>
+                </div>
+              </div>
+              <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+            </button>
+          `;
+        }
+      }
+      dropdown.innerHTML = html;
+      dropdown.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function generateDynamicCountry(countryTitle) {
+      const formattedName = countryTitle.charAt(0).toUpperCase() + countryTitle.slice(1);
+      const dynamicId = 'custom_' + formattedName.toLowerCase();
+      COUNTRIES[dynamicId] = {
+        id: dynamicId, region: 'all', name: formattedName, flag: '🌍',
+        priceLevel: '$$–$$$ • Индивидуальный расчет',
+        tagline: `Аналитическая сводка по направлению ${formattedName} для самостоятельного путешествия`,
+        seasonSummary: 'Круглогодично с учетом региональной климатической специфики',
+        seasonBadge: 'Доступно к визиту', bestMonths: [4, 5, 6, 9, 10, 11],
+        temps: [
+          { region: 'Столичный регион', value: '+20°C...+26°C (Комфорт)' },
+          { region: 'Курортные зоны', value: '+25°C...+29°C • Сезон' }
+        ],
+        visaStatus: 'По паспорту РФ',
+        visaDetails: 'Рекомендуется проверить актуальные визовые требования консульства и срок действия загранпаспорта перед поездкой.',
+        visaPassport: 'От 6 мес. с даты выезда',
+        currencyName: 'Нац. валюта / USD', currencyRate: 'Рекомендуется запас наличных USD/EUR',
+        payments: [
+          { label: 'Карты банков РФ', status: 'Ограниченно', ok: false },
+          { label: 'Иностранные Visa / MC', status: 'Работают везде', ok: true },
+          { label: 'Наличные USD (от 2013 г.)', status: 'Базовый резерв', ok: true }
+        ],
+        priorities: [
+          { title: 'Финансовая автономность', desc: 'Комбинируйте карту иностранного банка и резерв наличных долларов нового образца.' },
+          { title: 'Связь и навигация', desc: 'Установите туристическую eSIM заранее и загрузите офлайн-карты.' },
+          { title: 'Медицинская страховка', desc: 'Для самостоятельных поездок рекомендуется полис с покрытием от $50,000.' }
+        ],
+        verdict: `«Направление «${formattedName}» сформировано по вашему запросу. Добавьте его в шорт-лист для сравнения».`,
+        photos: [
+          { url: u('1469854523086-cc02fe5d8800'), caption: `${formattedName} • Панорамные маршруты` },
+          { url: u('1507525428034-b723cf961d3e'), caption: `${formattedName} • Природные ландшафты` }
+        ]
+      };
+      selectCountry(dynamicId);
+    }
+
+    function clearSearch() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('clear-search').classList.add('hidden');
+      document.getElementById('search-dropdown').classList.add('hidden');
+    }
+
+    function selectCountry(id) {
+      const data = COUNTRIES[id];
+      if (!data) return;
+      currentCountry = data;
+      currentPhotoIndex = 0;
+
+      document.getElementById('search-dropdown').classList.add('hidden');
+      document.getElementById('screen-home').classList.add('hidden');
+      const screenCountry = document.getElementById('screen-country');
+      screenCountry.classList.remove('hidden');
+      screenCountry.scrollTop = 0;
+
+      document.getElementById('country-name').textContent = data.name;
+      document.getElementById('country-flag').textContent = data.flag;
+      document.getElementById('country-tagline').textContent = data.tagline;
+      document.getElementById('country-price-level').textContent = data.priceLevel;
+
+      renderPhoto();
+
+      document.getElementById('season-summary').textContent = data.seasonSummary;
+      document.getElementById('season-badge').textContent = data.seasonBadge;
+
+      document.getElementById('temp-grid').innerHTML = data.temps.map(t => `
+        <div class="bg-white/[0.03] border border-white/5 rounded-2xl p-3">
+          <div class="text-[11px] text-platinum mb-0.5">${t.region}</div>
+          <div class="text-xs font-semibold text-white">${t.value}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('months-bar').innerHTML = MONTH_NAMES.map((m, idx) => {
+        const isBest = data.bestMonths.includes(idx + 1);
+        return `
+          <div class="flex flex-col items-center gap-1">
+            <div class="w-full h-2 rounded-sm ${isBest ? 'bg-gold shadow-[0_0_8px_rgba(212,175,55,0.5)]' : 'bg-white/10'}"></div>
+            <span class="text-[9px] ${isBest ? 'text-gold font-bold' : 'text-platinum/50'}">${m}</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('visa-status').textContent = data.visaStatus;
+      document.getElementById('visa-details').textContent = data.visaDetails;
+      document.getElementById('visa-passport').textContent = data.visaPassport;
+      document.getElementById('currency-name').textContent = data.currencyName;
+      document.getElementById('currency-rate').textContent = data.currencyRate;
+
+      document.getElementById('payment-methods').innerHTML = data.payments.map(p => `
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-platinum truncate">${p.label}</span>
+          <span class="${p.ok ? 'text-emerald-400' : 'text-rose-400'} font-medium text-right shrink-0">${p.status}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('priorities-list').innerHTML = data.priorities.map(pr => `
+        <li class="flex items-start gap-3 bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+          <div class="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 shrink-0"></div>
+          <div>
+            <span class="text-white font-semibold">${pr.title}: </span>
+            <span class="text-platinum">${pr.desc}</span>
+          </div>
+        </li>
+      `).join('');
+
+      document.getElementById('concierge-verdict').textContent = data.verdict;
+      updateFavButtonState();
+      lucide.createIcons();
+    }
+
+    function renderPhoto() {
+      const photo = currentCountry.photos[currentPhotoIndex];
+      const imgEl = document.getElementById('country-hero-img');
+      imgEl.style.opacity = '0.3';
+      setTimeout(() => {
+        imgEl.src = photo.url;
+        imgEl.style.opacity = '1';
+      }, 120);
+      document.getElementById('photo-caption').textContent = photo.caption;
+      document.getElementById('photo-indicators').innerHTML = currentCountry.photos.map((_, idx) => `
+        <div class="h-1 flex-1 rounded-full overflow-hidden bg-white/20">
+          <div class="h-full ${idx === currentPhotoIndex ? 'bg-gold' : idx < currentPhotoIndex ? 'bg-white/70' : 'bg-transparent'} transition-all duration-300"></div>
+        </div>
+      `).join('');
+    }
+
+    function nextPhoto() {
+      if (!currentCountry) return;
+      currentPhotoIndex = (currentPhotoIndex + 1) % currentCountry.photos.length;
+      renderPhoto();
+    }
+
+    function prevPhoto() {
+      if (!currentCountry) return;
+      currentPhotoIndex = (currentPhotoIndex - 1 + currentCountry.photos.length) % currentCountry.photos.length;
+      renderPhoto();
+    }
+
+    function showHome() {
+      document.getElementById('screen-country').classList.add('hidden');
+      document.getElementById('screen-home').classList.remove('hidden');
+      clearSearch();
+    }
+
+    function toggleFavorite() {
+      if (!currentCountry) return;
+      const id = currentCountry.id;
+      const idx = favorites.indexOf(id);
+      if (idx === -1) {
+        favorites.push(id);
+        showToast(`${currentCountry.name} добавлена к сравнению`);
+      } else {
+        favorites.splice(idx, 1);
+        showToast(`${currentCountry.name} удалена из списка`);
+      }
+      updateFavBadge();
+      updateFavButtonState();
+    }
+
+    function updateFavBadge() {
+      const badge = document.getElementById('fav-badge');
+      badge.textContent = favorites.length;
+      badge.classList.toggle('hidden', favorites.length === 0);
+    }
+
+    function updateFavButtonState() {
+      const isFav = favorites.includes(currentCountry.id);
+      const btnText = document.getElementById('fav-btn-text');
+      const btn = document.getElementById('fav-btn');
+      if (isFav) {
+        btnText.textContent = 'В шорт-листе (Убрать)';
+        btn.classList.remove('bg-gold', 'text-obsidian');
+        btn.classList.add('glass', 'gold-border', 'text-gold');
+      } else {
+        btnText.textContent = 'В шорт-лист для сравнения';
+        btn.classList.add('bg-gold', 'text-obsidian');
+        btn.classList.remove('glass', 'gold-border', 'text-gold');
+      }
+    }
+
+    function openCompareModal() {
+      const listEl = document.getElementById('compare-list');
+      if (favorites.length === 0) {
+        listEl.innerHTML = `<div class="text-center py-10 text-platinum text-xs">Ваш шорт-лист пуст. Добавьте страны для сравнения.</div>`;
+      } else {
+        listEl.innerHTML = favorites.map(id => {
+          const c = COUNTRIES[id];
+          if (!c) return '';
+          return `
+            <div onclick="closeCompareModal(); selectCountry('${c.id}')" class="glass hover:border-gold/50 p-4 rounded-2xl flex items-center justify-between cursor-pointer transition">
+              <div class="flex items-center gap-3.5">
+                <img src="${c.photos[0].url}" class="w-14 h-14 rounded-xl object-cover shrink-0" alt="${c.name}">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-base font-semibold text-white">${c.name}</span>
+                    <span>${c.flag}</span>
+                  </div>
+                  <div class="text-xs text-gold mt-0.5">${c.seasonBadge}</div>
+                  <div class="text-[11px] text-platinum mt-0.5">${c.visaStatus}</div>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-5 h-5 text-platinum shrink-0"></i>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('modal-compare').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeCompareModal() {
+      document.getElementById('modal-compare').classList.add('hidden');
+    }
+
+    function shareCountry() {
+      if (!currentCountry) return;
+      showToast(`Досье «${currentCountry.name}» скопировано`);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2400);
+    }
+  </script>
+</body>
+</html>
