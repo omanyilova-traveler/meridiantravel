@@ -6,7 +6,7 @@
   <title>MERIDIAN — Private Travel Concierge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -19,7 +19,7 @@
             graphite: '#141417',
             gold: '#D4AF37',
             'gold-light': '#F3E5AB',
-            platinum: '#C4C4CC',
+            platinum: '#D1D1D6',
           },
           fontFamily: {
             serif: ['"Cormorant Garamond"', 'serif'],
@@ -31,10 +31,10 @@
   </script>
   <style>
     body { background-color: #050507; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-    .glass { background: rgba(22, 22, 26, 0.78); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); }
-    .glass-strong { background: rgba(10, 10, 12, 0.94); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.14); }
-    .gold-border { border: 1px solid rgba(212, 175, 55, 0.45); }
-    @keyframes kenburns { 0% { transform: scale(1); } 50% { transform: scale(1.07); } 100% { transform: scale(1); } }
+    .glass { background: rgba(22, 22, 26, 0.82); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.14); }
+    .glass-strong { background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.15); }
+    .gold-border { border: 1px solid rgba(212, 175, 55, 0.48); }
+    @keyframes kenburns { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
     .animate-kenburns { animation: kenburns 22s ease-in-out infinite; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -42,35 +42,30 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     body.large-text { font-size: 115%; }
-    body.large-text .read-text { font-size: 1.06rem !important; line-height: 1.65 !important; }
-    body.large-text .read-title { font-size: 1.2rem !important; }
-    body.large-text .read-sub { font-size: 0.95rem !important; }
+    body.large-text .read-text { font-size: 1.08rem !important; line-height: 1.65 !important; }
+    body.large-text .read-title { font-size: 1.22rem !important; }
+    body.large-text .read-sub { font-size: 0.98rem !important; }
   </style>
 </head>
 <body class="flex justify-center items-start min-h-screen bg-[#050507] sm:py-6">
 
-  <!-- Мобильный контейнер -->
   <div class="relative w-full max-w-[440px] min-h-screen sm:min-h-[880px] sm:h-[880px] bg-obsidian sm:rounded-[44px] sm:border-[6px] sm:border-[#1F1F24] shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col">
 
-    <!-- ==========================================================
-         ЭКРАН ЗАЩИТЫ АВТОРСТВА (VIP INVITE GATE)
-         ========================================================== -->
+    <!-- ЭКРАН ВХОДА ПО КЛЮЧУ -->
     <div id="screen-gate" class="absolute inset-0 z-50 bg-obsidian flex flex-col justify-between p-7">
       <div class="absolute inset-0 z-0 pointer-events-none">
-        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover opacity-25 animate-kenburns" alt="">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover opacity-25 animate-kenburns" alt="">
         <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/85 to-obsidian"></div>
       </div>
 
       <div class="relative z-10 flex items-center justify-between pt-2">
         <div class="flex items-center gap-2">
           <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
-          <span class="font-serif tracking-[0.25em] text-base font-semibold text-white">MERIDIAN</span>
+          <span class="font-serif tracking-[0.25em] text-base font-bold text-white">MERIDIAN</span>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="toggleLanguage()" id="gate-lang-btn" class="glass gold-border px-3 py-1 rounded-full text-xs font-bold text-gold hover:bg-white/10 transition">
-            RUS
-          </button>
-        </div>
+        <button onclick="toggleLanguage()" id="gate-lang-btn" class="glass gold-border px-3 py-1 rounded-full text-xs font-bold text-gold hover:bg-white/10 transition">
+          RUS
+        </button>
       </div>
 
       <div class="relative z-10 my-auto">
@@ -78,7 +73,7 @@
           <i data-lucide="key-round" class="w-6 h-6"></i>
         </div>
         <h1 id="ui-gate-title" class="font-serif text-4xl text-white leading-tight mb-3">
-          Закрытый показ <br><span class="italic font-normal text-gold-light">Private Travel Concierge</span>
+          Закрытый показ <br><span class="text-gold-light font-normal">Private Travel Concierge</span>
         </h1>
         <p id="ui-gate-desc" class="text-sm text-platinum leading-relaxed mb-6 read-text">
           Этот прототип является частной интеллектуальной собственностью автора. Доступ возможен по персональному ключу (например: <span class="text-gold font-semibold">VIP-01</span>).
@@ -103,12 +98,12 @@
       </div>
     </div>
 
-    <!-- ВОДЯНОЙ ЗНАК СЕССИИ -->
+    <!-- ВОДЯНОЙ ЗНАК -->
     <div id="watermark-bar" class="hidden fixed sm:absolute bottom-1 right-4 z-50 pointer-events-none text-[10px] text-white/35 tracking-wider uppercase">
       Key: <span id="watermark-code">VIP</span> • Private Travel Concierge
     </div>
 
-    <!-- ВЕРХНЯЯ ШАПКА (ВСЕГДА ДОСТУПНА) -->
+    <!-- ВЕРХНЯЯ ШАПКА -->
     <header class="sticky sm:absolute top-0 left-0 right-0 z-40 px-4 pt-4 pb-3 flex justify-between items-center bg-obsidian/90 backdrop-blur-xl border-b border-white/10">
       <div class="flex items-center gap-2">
         <button id="top-back-btn" onclick="showHome()" class="hidden bg-gold text-obsidian font-semibold px-3 py-1.5 rounded-full text-xs flex items-center gap-1 shadow-md hover:bg-[#e0bb3e] transition">
@@ -123,17 +118,14 @@
       </div>
 
       <div class="flex items-center gap-1.5">
-        <!-- Кнопка увеличения шрифта для слабовидящих -->
         <button onclick="toggleFontSize()" id="font-size-btn" class="glass px-2.5 py-1.5 rounded-full text-xs font-semibold text-white hover:border-gold transition" title="Увеличить шрифт">
           Аа+
         </button>
 
-        <!-- Ячейка отображения текущего языка: RUS (на русском) / ENG (на английском) -->
-        <button onclick="toggleLanguage()" id="lang-btn" class="glass gold-border px-3 py-1.5 rounded-full text-xs font-bold text-gold hover:bg-white/10 transition" title="Сменить язык / Switch language">
+        <button onclick="toggleLanguage()" id="lang-btn" class="glass gold-border px-3 py-1.5 rounded-full text-xs font-bold text-gold hover:bg-white/10 transition">
           RUS
         </button>
 
-        <!-- Закладки (Шорт-лист) -->
         <button onclick="openCompareModal()" class="relative glass w-9 h-9 rounded-full flex items-center justify-center hover:border-gold/50 transition" title="Шорт-лист">
           <i data-lucide="bookmark" class="w-4 h-4 text-white"></i>
           <span id="fav-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-obsidian text-[10px] font-bold flex items-center justify-center">0</span>
@@ -141,9 +133,7 @@
       </div>
     </header>
 
-    <!-- ==========================================================
-         ЭКРАН 1: ГЛАВНЫЙ КАТАЛОГ И ПОИСК
-         ========================================================== -->
+    <!-- ЭКРАН 1: ГЛАВНЫЙ КАТАЛОГ -->
     <main id="screen-home" class="relative flex-1 flex flex-col justify-between p-5 sm:pt-20 overflow-y-auto no-scrollbar">
       <div class="fixed sm:absolute inset-0 z-0 pointer-events-none">
         <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="Background" class="w-full h-full object-cover animate-kenburns opacity-35">
@@ -157,17 +147,17 @@
         </div>
         
         <h1 id="ui-hero-title" class="font-serif text-4xl text-white leading-[1.12] mb-2.5">
-          Куда отправимся <br><span class="italic font-normal text-gold-light">в этот раз?</span>
+          Куда отправимся <br><span class="text-gold-light font-normal">в этот раз?</span>
         </h1>
         <p id="ui-hero-desc" class="text-platinum text-sm mb-5 leading-relaxed read-text">
-          Климат, визовый режим, денежный оборот и главные локации по России и миру за 10 секунд.
+          Перелеты, климат, визовый режим, денежный оборот и главные локации по России и миру за 10 секунд.
         </p>
 
         <!-- Поиск -->
         <div class="relative mb-5">
           <div class="glass rounded-2xl p-2 flex items-center focus-within:border-gold transition shadow-2xl">
             <i data-lucide="search" class="w-5 h-5 text-gold ml-2.5 mr-2 shrink-0"></i>
-            <input id="search-input" type="text" placeholder="Страна или город РФ (Россия, Сочи, Байкал, Китай)..." autocomplete="off" class="w-full bg-transparent text-white placeholder-platinum/70 text-base py-2 focus:outline-none">
+            <input id="search-input" type="text" placeholder="Страна или город РФ (Россия, Сочи, Вьетнам, Китай)..." autocomplete="off" class="w-full bg-transparent text-white placeholder-platinum/70 text-base py-2 focus:outline-none">
             <button id="clear-search" onclick="clearSearch()" class="hidden p-2 text-platinum hover:text-white">
               <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -177,9 +167,7 @@
 
         <!-- Вкладки регионов -->
         <div class="mb-4">
-          <div id="region-tabs-bar" class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-            <!-- Заполняется из JS на текущем языке -->
-          </div>
+          <div id="region-tabs-bar" class="flex gap-2 overflow-x-auto no-scrollbar pb-1"></div>
         </div>
 
         <!-- Сетка стран -->
@@ -192,16 +180,14 @@
       </div>
     </main>
 
-    <!-- ==========================================================
-         ЭКРАН 2: ДОСЬЕ СТРАНЫ И ГОРОДОВ
-         ========================================================== -->
+    <!-- ЭКРАН 2: ДОСЬЕ СТРАНЫ -->
     <main id="screen-country" class="hidden flex-1 overflow-y-auto no-scrollbar scroll-smooth relative">
       
       <!-- 4K Фотогалерея -->
-      <section class="relative min-h-[540px] h-[72vh] sm:h-[620px] w-full shrink-0 flex flex-col justify-end p-5 pt-20 select-none">
+      <section class="relative min-h-[540px] h-[70vh] sm:h-[600px] w-full shrink-0 flex flex-col justify-end p-5 pt-20 select-none">
         <div class="absolute inset-0 z-0 bg-obsidian">
-          <img id="country-hero-img" src="" alt="Country view" class="w-full h-full object-cover transition-opacity duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-black/60"></div>
+          <img id="country-hero-img" src="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85';" alt="Country view" class="w-full h-full object-cover transition-opacity duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/45 to-black/60"></div>
         </div>
 
         <div onclick="prevPhoto()" class="absolute inset-y-24 left-0 w-1/3 z-10 cursor-pointer"></div>
@@ -214,19 +200,19 @@
             <i data-lucide="arrow-left" class="w-4 h-4 text-gold"></i>
             <span id="ui-back-photo">Назад к списку стран</span>
           </button>
-          <button onclick="nextPhoto()" class="glass px-3 py-1.5 rounded-full text-xs text-gold flex items-center gap-1.5">
-            <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+          <button onclick="nextPhoto()" class="glass px-3.5 py-2 rounded-full text-xs sm:text-sm text-gold font-medium flex items-center gap-1.5 hover:bg-white/10 transition">
+            <i data-lucide="camera" class="w-4 h-4"></i>
             <span id="ui-next-photo">След. фото ▶</span>
           </button>
         </div>
 
         <div class="relative z-20 mb-4 fade-enter">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-gold-light mb-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/75 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-gold-light mb-3">
             <i data-lucide="map-pin" class="w-4 h-4 text-gold shrink-0"></i>
             <span id="photo-caption">Локация</span>
           </div>
           <div class="flex items-baseline gap-3 flex-wrap">
-            <h1 id="country-name" class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-white">Страна</h1>
+            <h1 id="country-name" class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-white">Страна</h1>
             <span id="country-flag" class="text-3xl">🏳️</span>
           </div>
           <p id="country-tagline" class="text-platinum text-sm sm:text-base mt-1.5 leading-snug read-text"></p>
@@ -238,30 +224,50 @@
           <div id="city-pills" class="flex gap-2 overflow-x-auto no-scrollbar pb-1"></div>
         </div>
 
-        <a href="#bento-section" class="relative z-20 glass gold-border rounded-2xl p-3.5 flex items-center justify-between group hover:bg-white/5 transition cursor-pointer">
+        <!-- ИСПРАВЛЕННАЯ КНОПКА ПРОКРУТКИ ВНИЗ (Больше не выбрасывает на главный экран!) -->
+        <button type="button" onclick="scrollToDossier()" class="w-full text-left relative z-20 glass gold-border rounded-2xl p-4 flex items-center justify-between group hover:bg-white/10 transition cursor-pointer">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-gold/15 flex items-center justify-center text-gold">
+            <div class="w-10 h-10 rounded-xl bg-gold/15 flex items-center justify-center text-gold shrink-0">
               <i data-lucide="compass" class="w-5 h-5"></i>
             </div>
             <div>
-              <div id="ui-dossier-btn-title" class="text-sm font-semibold text-white">Подробное досье направления</div>
-              <div id="ui-dossier-btn-sub" class="text-xs text-platinum">Погода, виза, денежный оборот и приоритеты</div>
+              <div id="ui-dossier-btn-title" class="text-sm sm:text-base font-semibold text-white">Раскрыть подробное досье ↓</div>
+              <div id="ui-dossier-btn-sub" class="text-xs sm:text-sm text-platinum">Перелеты, погода, виза, деньги и приоритеты</div>
             </div>
           </div>
-          <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+          <div class="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center shrink-0">
             <i data-lucide="chevron-down" class="w-5 h-5 text-gold"></i>
           </div>
-        </a>
+        </button>
       </section>
 
-      <!-- ПОЛНОЕ ДОСЬЕ -->
+      <!-- ПОЛНОЕ ДОСЬЕ НАПРАВЛЕНИЯ -->
       <section id="bento-section" class="relative z-20 bg-obsidian px-5 pt-6 pb-28 space-y-4">
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
-          <div>
-            <span class="text-xs uppercase tracking-[0.2em] text-gold">Private Travel Concierge</span>
-            <h2 id="ui-summary-heading" class="font-serif text-2xl sm:text-3xl text-white">Ключевые показатели</h2>
+        
+        <!-- Шапка сводки с понятным объяснением бюджета (без значков $$$$) -->
+        <div class="border-b border-white/10 pb-4 space-y-2">
+          <span class="text-xs uppercase tracking-[0.2em] text-gold">Private Travel Concierge</span>
+          <h2 id="ui-summary-heading" class="font-serif text-3xl text-white">Ключевые показатели</h2>
+          <div class="inline-flex items-center gap-2 glass px-3.5 py-2 rounded-xl text-xs sm:text-sm">
+            <span id="ui-budget-label" class="text-platinum">Ориентир бюджета поездки:</span>
+            <span id="country-price-level" class="text-gold font-semibold">Комфорт и Премиум</span>
           </div>
-          <span id="country-price-level" class="glass px-3 py-1.5 rounded-full text-xs sm:text-sm text-gold font-medium">$$$</span>
+        </div>
+
+        <!-- НОВАЯ КАРТОЧКА: КАК ДОБРАТЬСЯ И ПЕРЕЛЕТЫ -->
+        <div class="glass rounded-3xl p-5 space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/25 flex items-center justify-center text-gold shrink-0">
+                <i data-lucide="plane" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 id="ui-flight-title" class="text-base font-semibold text-white read-title">Как добраться и перелеты</h3>
+                <div id="flight-status" class="text-sm font-semibold text-gold mt-0.5"></div>
+              </div>
+            </div>
+          </div>
+          <p id="flight-details" class="text-sm text-platinum leading-relaxed read-text"></p>
         </div>
 
         <!-- 1. КЛИМАТ И СЕЗОНЫ -->
@@ -290,7 +296,7 @@
           </div>
         </div>
 
-        <!-- 2. ДЕНЕЖНЫЙ ОБОРОТ И ОПЛАТА (ПОЛНЫЙ ТЕКСТ БЕЗ МНОГОТОЧИЙ) -->
+        <!-- 2. ДЕНЕЖНЫЙ ОБОРОТ И ОПЛАТА -->
         <div class="glass rounded-3xl p-5 space-y-3">
           <div class="flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-3">
@@ -342,10 +348,10 @@
           <ul id="priorities-list" class="space-y-3 text-sm leading-relaxed read-text"></ul>
         </div>
 
-        <!-- 5. ВЕРДИКТ КОНСЬЕРЖА -->
+        <!-- 5. ВЕРДИКТ КОНСЬЕРЖА (ЧЕТКИЙ ПРЯМОЙ ШРИФТ БЕЗ КУРСИВА!) -->
         <div class="rounded-3xl p-5 bg-gradient-to-br from-[#1B1811] via-graphite to-obsidian gold-border">
-          <div class="text-xs uppercase tracking-[0.2em] text-gold mb-1.5">Private Travel Concierge Verdict</div>
-          <p id="concierge-verdict" class="font-serif italic text-xl text-white leading-snug"></p>
+          <div id="ui-verdict-label" class="text-xs uppercase tracking-[0.18em] text-gold font-semibold mb-2">Итоговая рекомендация консьержа</div>
+          <p id="concierge-verdict" class="font-sans font-medium text-base sm:text-lg text-white leading-relaxed read-text"></p>
         </div>
 
         <!-- Кнопка возврата в самом низу досье -->
@@ -397,10 +403,9 @@
 
   <script>
     const VALID_INVITE_CODES = ['FOUNDER', 'VIP-01', 'VIP-02', 'VIP-03', 'VIP-04', 'VIP-05', 'VIP'];
-    let currentLang = 'ru'; // По умолчанию русский -> ячейка показывает RUS
+    let currentLang = 'ru';
     let isLargeText = false;
 
-    // Умный помощник выбора языка: возвращает английский текст при ENG и русский при RUS
     function tr(obj, field) {
       if (!obj) return '';
       if (currentLang === 'en' && obj[field + 'En']) return obj[field + 'En'];
@@ -420,6 +425,14 @@
       }
     }
 
+    // Плавное раскрытие досье при нажатии на кнопку со стрелкой вниз (без сброса на главный экран!)
+    function scrollToDossier() {
+      const target = document.getElementById('bento-section');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     function toggleFontSize() {
       isLargeText = !isLargeText;
       document.body.classList.toggle('large-text', isLargeText);
@@ -435,7 +448,7 @@
     const UI_TEXT = {
       ru: {
         langCode: 'RUS',
-        gateTitle: 'Закрытый показ <br><span class="italic font-normal text-gold-light">Private Travel Concierge</span>',
+        gateTitle: 'Закрытый показ <br><span class="text-gold-light font-normal">Private Travel Concierge</span>',
         gateDesc: 'Этот прототип является частной интеллектуальной собственностью автора. Доступ возможен по персональному ключу (например: <span class="text-gold font-semibold">VIP-01</span>).',
         gatePlaceholder: 'Введите ключ (VIP-01)...',
         gateError: 'Неверный ключ. Попробуйте VIP-01 или FOUNDER.',
@@ -443,15 +456,17 @@
         gateCopy: '© 2026 MERIDIAN — Private Travel Concierge. Все права защищены.',
         gateOwner: 'Создатель и правообладатель: Авторский проект (Founder Edition)',
         backTop: 'Все страны',
-        heroTitle: 'Куда отправимся <br><span class="italic font-normal text-gold-light">в этот раз?</span>',
-        heroDesc: 'Климат, визовый режим, денежный оборот и главные локации по России и миру за 10 секунд.',
-        searchPlaceholder: 'Страна или город РФ (Россия, Сочи, Байкал, Китай)...',
+        heroTitle: 'Куда отправимся <br><span class="text-gold-light font-normal">в этот раз?</span>',
+        heroDesc: 'Перелеты, климат, визовый режим, денежный оборот и главные локации по России и миру за 10 секунд.',
+        searchPlaceholder: 'Страна или город РФ (Россия, Сочи, Вьетнам, Китай)...',
         backPhoto: 'Назад к списку стран',
         nextPhoto: 'След. фото ▶',
         chooseCity: 'Выберите город или регион для деталей:',
-        dossierBtnTitle: 'Подробное досье направления',
-        dossierBtnSub: 'Погода, виза, денежный оборот и приоритеты',
+        dossierBtnTitle: 'Раскрыть подробное досье ↓',
+        dossierBtnSub: 'Перелеты, погода, виза, деньги и приоритеты',
         summaryHeading: 'Ключевые показатели',
+        budgetLabel: 'Ориентир бюджета поездки:',
+        flightTitle: 'Как добраться и перелеты',
         climateTitle: 'Лучшие сезоны и климат',
         comfortMap: 'Годовая карта комфорта',
         bestMonths: '■ Лучшие месяцы',
@@ -460,6 +475,7 @@
         passportReq: 'Требование к документу:',
         prioritiesTitle: 'Национальные приоритеты',
         prioritiesSub: 'Культурный код, безопасность и важные нюансы',
+        verdictLabel: 'Итоговая рекомендация консьержа',
         backBottom: 'Вернуться к выбору другой страны или города',
         shortlistTitle: 'Шорт-лист направлений',
         shortlistHint: 'Нажмите на карточку для открытия',
@@ -476,7 +492,7 @@
       },
       en: {
         langCode: 'ENG',
-        gateTitle: 'Private Preview <br><span class="italic font-normal text-gold-light">Private Travel Concierge</span>',
+        gateTitle: 'Private Preview <br><span class="text-gold-light font-normal">Private Travel Concierge</span>',
         gateDesc: 'This prototype is proprietary intellectual property. Access is granted via personal invitation key (e.g., <span class="text-gold font-semibold">VIP-01</span>).',
         gatePlaceholder: 'Enter invite key (VIP-01)...',
         gateError: 'Invalid key. Try VIP-01 or FOUNDER.',
@@ -484,15 +500,17 @@
         gateCopy: '© 2026 MERIDIAN — Private Travel Concierge. All rights reserved.',
         gateOwner: 'Creator & Copyright Holder: Founder Edition',
         backTop: 'All Countries',
-        heroTitle: 'Where shall we go <br><span class="italic font-normal text-gold-light">this time?</span>',
-        heroDesc: 'Best seasons, visa rules, currency insights & curated locations across Russia and 195 countries in 10 seconds.',
-        searchPlaceholder: 'Search country or city (Russia, Sochi, Baikal, China)...',
+        heroTitle: 'Where shall we go <br><span class="text-gold-light font-normal">this time?</span>',
+        heroDesc: 'Flights, best seasons, visa rules, currency insights & curated locations across Russia and 195 countries in 10 seconds.',
+        searchPlaceholder: 'Search country or city (Russia, Sochi, Vietnam, China)...',
         backPhoto: 'Back to catalog',
         nextPhoto: 'Next photo ▶',
         chooseCity: 'Select city or region for details:',
-        dossierBtnTitle: 'Executive Country Dossier',
-        dossierBtnSub: 'Climate, visa, currency & cultural code',
+        dossierBtnTitle: 'Scroll to Full Dossier ↓',
+        dossierBtnSub: 'Flights, climate, visa, currency & cultural code',
         summaryHeading: 'Executive Summary',
+        budgetLabel: 'Estimated Trip Budget:',
+        flightTitle: 'How to Get There & Flights',
         climateTitle: 'Best Seasons & Climate',
         comfortMap: 'Annual Comfort Map',
         bestMonths: '■ Best Months',
@@ -501,6 +519,7 @@
         passportReq: 'Document validity:',
         prioritiesTitle: 'National Priorities & Code',
         prioritiesSub: 'Safety, etiquette and essential insights',
+        verdictLabel: 'Private Travel Concierge Verdict',
         backBottom: 'Back to all countries and cities',
         shortlistTitle: 'Comparison Shortlist',
         shortlistHint: 'Tap a card to view full dossier',
@@ -519,7 +538,6 @@
 
     function applyLanguageUI() {
       const t = UI_TEXT[currentLang];
-      // Ячейка языка показывает именно тот язык, на котором сейчас весь текст: RUS или ENG
       document.getElementById('lang-btn').textContent = t.langCode;
       document.getElementById('gate-lang-btn').textContent = t.langCode;
 
@@ -541,6 +559,8 @@
       document.getElementById('ui-dossier-btn-title').textContent = t.dossierBtnTitle;
       document.getElementById('ui-dossier-btn-sub').textContent = t.dossierBtnSub;
       document.getElementById('ui-summary-heading').textContent = t.summaryHeading;
+      document.getElementById('ui-budget-label').textContent = t.budgetLabel;
+      document.getElementById('ui-flight-title').textContent = t.flightTitle;
       document.getElementById('ui-climate-title').textContent = t.climateTitle;
       document.getElementById('ui-comfort-map').textContent = t.comfortMap;
       document.getElementById('ui-best-months').textContent = t.bestMonths;
@@ -549,6 +569,7 @@
       document.getElementById('ui-passport-req').textContent = t.passportReq;
       document.getElementById('ui-priorities-title').textContent = t.prioritiesTitle;
       document.getElementById('ui-priorities-sub').textContent = t.prioritiesSub;
+      document.getElementById('ui-verdict-label').textContent = t.verdictLabel;
       document.getElementById('ui-back-bottom').textContent = t.backBottom;
       document.getElementById('ui-shortlist-title').textContent = t.shortlistTitle;
       document.getElementById('ui-shortlist-hint').textContent = t.shortlistHint;
@@ -557,7 +578,7 @@
 
       renderRegionTabs();
       renderCatalogGrid(currentRegionFilter);
-      if (currentCountry) selectCountry(currentCountry.id, currentCityKey, false);
+      if (currentCountry) selectCountry(currentCountry.id, currentCityKey);
     }
 
     function toggleLanguage() {
@@ -584,7 +605,10 @@
     const COUNTRIES = {
       russia: {
         id: 'russia', region: 'russia', name: 'Россия', nameEn: 'Russia', flag: '🇷🇺',
-        priceLevel: '$$–$$$ • Комфорт и Премиум', priceLevelEn: '$$–$$$ • Comfort & Luxury',
+        priceLevel: 'Средний / Премиум (на выбор)', priceLevelEn: 'Moderate to Luxury',
+        flightStatus: 'Прямые рейсы и скоростные поезда', flightStatusEn: 'Direct Flights & High-Speed Trains',
+        flightDetails: 'Ежедневные прямые рейсы из Москвы, Санкт-Петербурга и региональных хабов во все ключевые города страны, а также скоростные поезда Сапсан в Санкт-Петербург (4 часа в пути).',
+        flightDetailsEn: 'Daily direct flights connecting Moscow, Saint Petersburg and all regional capitals, plus high-speed Sapsan trains between Moscow and St. Petersburg (4 hours).',
         tagline: 'От имперских дворцов Петербурга и гастрономии Москвы до льдов Байкала, курортов Сочи и вулканов Камчатки',
         taglineEn: 'From Imperial palaces of Saint Petersburg and Moscow fine dining to Lake Baikal ice, Sochi resorts & Kamchatka volcanoes',
         seasonSummary: 'Май–Сентябрь (Центр, СПб, Алтай, Калининград), Декабрь–Март (Горные лыжи Сочи и зимний лед Байкала)',
@@ -609,10 +633,10 @@
         priorities: [
           { title: 'Гастрономический и отельный бум', titleEn: 'Fine Dining & Boutique Hospitality', desc: 'Москва, Санкт-Петербург, Сочи и Алтай предлагают рестораны мирового уровня и пятизвездочные спа-отели.', descEn: 'Moscow, St. Petersburg, Sochi and Altai feature Michelin-caliber dining and 5-star luxury resorts.' },
           { title: 'Цифровой комфорт 24/7', titleEn: '24/7 Digital Convenience', desc: 'Банковские сервисы, доставка и Яндекс Go работают быстрее, чем в большинстве столиц мира.', descEn: 'Banking apps, instant delivery and Yandex Go ride-hailing operate seamlessly 24/7.' },
-          { title: 'Выбор города сверху', titleEn: 'Interactive City Selector', desc: 'Нажмите на интересующий город на карточке выше, чтобы посмотреть его климат и локации.', descEn: 'Tap any Russian city or region above the photo to view its specific climate and highlights.' }
+          { title: 'Выбор города сверху', titleEn: 'Interactive City Selector', desc: 'Нажмите на интересующий город на карточке выше, чтобы посмотреть его климат, перелет и локации.', descEn: 'Tap any Russian city or region above the photo to view its specific flights, climate and highlights.' }
         ],
-        verdict: '«Огромная коллекция впечатлений внутри одной страны без языкового барьера, обмена валют и визовых границ».',
-        verdictEn: '«A vast collection of world-class experiences across one country — from imperial heritage to untouched nature».',
+        verdict: 'Огромная коллекция впечатлений внутри одной страны без языкового барьера, обмена валют и визовых границ.',
+        verdictEn: 'A vast collection of world-class experiences across one country — from imperial heritage to untouched nature.',
         photos: [
           { url: u('1513326738677-b964603b136d'), caption: 'Москва • Исторический центр, Кремль и панорамы столицы', captionEn: 'Moscow • Red Square, Kremlin & historic city center' },
           { url: u('1556610961-2fecc5927173'), caption: 'Санкт-Петербург • Белые ночи, разводные мосты и каналы', captionEn: 'Saint Petersburg • White Nights, palaces and canals' },
@@ -621,6 +645,8 @@
         cities: {
           moscow: {
             name: 'Москва', nameEn: 'Moscow',
+            flight: 'Крупнейший авиаузел страны: прямые рейсы из всех регионов РФ (аэропорты Шереметьево, Домодедово, Внуково) и скоростные поезда.',
+            flightEn: 'Primary aviation hub with direct flights from all Russian regions and international capitals.',
             tagline: 'Мегаполис мирового класса: высокая гастрономия, театры, парки и безупречный сервис 24/7',
             taglineEn: 'World-class metropolis: fine dining, Bolshoi Theatre, lush parks and 24/7 luxury service',
             season: 'Май–Сентябрь (Летние веранды и парки) и Декабрь–Январь (Новогодняя сказка)',
@@ -635,6 +661,8 @@
           },
           spb: {
             name: 'Санкт-Петербург', nameEn: 'Saint Petersburg',
+            flight: 'Прямые рейсы в аэропорт Пулково (1.5 часа из Москвы) или высокоскоростной поезд Сапсан с Ленинградского вокзала (4 часа в пути).',
+            flightEn: 'Direct flights to Pulkovo Airport (1.5h from Moscow) or high-speed Sapsan train (4 hours center-to-center).',
             tagline: 'Имперская столица искусств: Эрмитаж, дворцы Петергофа, Белые ночи и авторские рестораны',
             taglineEn: 'Imperial capital of arts: The Hermitage, Peterhof fountains, White Nights & gourmet dining',
             season: 'Май–Июль (Сезон Белых ночей) и Сентябрь (Золотая осень в пригородах)',
@@ -649,6 +677,8 @@
           },
           sochi: {
             name: 'Сочи и Красная Поляна', nameEn: 'Sochi & Rosa Khutor',
+            flight: 'Ежедневные прямые рейсы в международный аэропорт Сочи (Адлер) из Москвы (около 3.5–4 часов в пути) и десятков городов РФ. От аэропорта до Красной Поляны — 40 минут на авто или Ласточке.',
+            flightEn: 'Daily direct flights to Sochi International Airport (3.5–4h from Moscow). Rosa Khutor mountain resort is a 40-minute drive or express train ride from the airport.',
             tagline: 'Субтропическое побережье Черного моря и главный горнолыжный курорт страны Роза Хутор',
             taglineEn: 'Subtropical Black Sea Riviera combined with the premier Rosa Khutor alpine ski resort',
             season: 'Май–Октябрь (Море и яхтинг), Декабрь–Март (Горные лыжи в Красной Поляне)',
@@ -663,6 +693,8 @@
           },
           baikal: {
             name: 'Озеро Байкал', nameEn: 'Lake Baikal',
+            flight: 'Прямые ежедневные рейсы в Иркутск или Улан-Удэ из Москвы (около 5.5–6 часов в пути), Новосибирска и других крупных городов. Далее трансфер до Листвянки (1 час) или острова Ольхон.',
+            flightEn: 'Direct daily flights to Irkutsk or Ulan-Ude (5.5–6h from Moscow), followed by scenic road or hovercraft transfer to Lake Baikal.',
             tagline: 'Самое глубокое озеро планеты: зеркальный голубой лед зимой и круизы по Ольхону летом',
             taglineEn: 'The deepest lake on Earth: crystal-clear blue winter ice and summer yacht cruises around Olkhon',
             season: 'Февраль–Март (Прозрачный лед и гроты) и Июль–Август (Летние экспедиции)',
@@ -677,6 +709,8 @@
           },
           altai: {
             name: 'Горный Алтай', nameEn: 'Altai Mountains',
+            flight: 'Прямые рейсы в аэропорт Горно-Алтайска из Москвы (около 4.5 часов), Санкт-Петербурга и городов Сибири. Курорт Манжерок и эко-отели Катуни находятся в 30–50 минутах езды от аэропорта.',
+            flightEn: 'Direct flights to Gorno-Altaysk Airport (4.5h from Moscow). Luxury eco-lodges along the Katun River are 30–50 minutes away.',
             tagline: 'Место силы: бирюзовая Катунь, Чуйский тракт, Телецкое озеро и премиальные эко-лоджи',
             taglineEn: 'Sanctuary of nature: turquoise Katun River, Chuysky Trakt, Lake Teletskoye & luxury eco-lodges',
             season: 'Май (Цветение маральника) и Июнь–Сентябрь (Теплое лето и золотая осень)',
@@ -691,6 +725,8 @@
           },
           kaliningrad: {
             name: 'Калининград', nameEn: 'Kaliningrad',
+            flight: 'Прямые ежедневные рейсы в аэропорт Храброво из Москвы (около 2.5 часов), Санкт-Петербурга и других городов по внутреннему паспорту РФ. До курортов Зеленоградск и Светлогорск — 25 минут на авто.',
+            flightEn: 'Direct daily flights to Khrabrovo Airport (2.5h from Moscow). Baltic resorts Zelenogradsk and Svetlogorsk are 25 minutes from the airport.',
             tagline: 'Европейский шарм Балтики: дюны Куршской косы, старинный Зеленоградск и курортный Светлогорск',
             taglineEn: 'European Baltic charm: Curonian Spit sand dunes, historic Zelenogradsk & Svetlogorsk pine coast',
             season: 'Май–Сентябрь (Пляжи Балтики, янтарный берег и прогулки)',
@@ -705,6 +741,8 @@
           },
           kamchatka: {
             name: 'Камчатка', nameEn: 'Kamchatka',
+            flight: 'Прямые регулярные рейсы в аэропорт Петропавловска-Камчатского (Елизово) из Москвы (около 8.5 часов), Новосибирска и Владивостока.',
+            flightEn: 'Direct wide-body flights to Petropavlovsk-Kamchatsky (Yelizovo Airport, 8.5h from Moscow).',
             tagline: 'Край действующих вулканов, гейзеров, медведей, серфинга на Халактырском пляже и вертолетных туров',
             taglineEn: 'Land of active volcanoes, geysers, brown bears, Pacific black-sand surfing & helicopter expeditions',
             season: 'Июль–Сентябрь (Восхождения на вулканы, Тихий океан и нерест лосося)',
@@ -722,7 +760,10 @@
 
       vietnam: {
         id: 'vietnam', region: 'asia', name: 'Вьетнам', nameEn: 'Vietnam', flag: '🇻🇳',
-        priceLevel: '$$ • Выгодно / Люкс-резорты', priceLevelEn: '$$ • Great Value / Luxury Resorts',
+        priceLevel: 'Доступный / Люкс-резорты по выгодной цене', priceLevelEn: 'Great Value / Affordable Luxury',
+        flightStatus: 'Есть прямые и стыковочные рейсы', flightStatusEn: 'Direct & Connecting Flights Available',
+        flightDetails: 'Доступны прямые рейсы из Москвы и Иркутска в Хошимин и Ханой (около 9–10 часов), сезонные прямые программы на остров Фукуок и в Нячанг (Камрань), а также удобные перелеты с одной короткой стыковкой через города Китая или ОАЭ.',
+        flightDetailsEn: 'Direct flights operate to Ho Chi Minh City, Hanoi and Phu Quoc Island (9–10h), alongside convenient one-stop connections via Chinese or Gulf hubs.',
         tagline: 'Изумрудные скалы бухты Халонг, пляжные виллы Фукуока и французский шарм Индокитая',
         taglineEn: 'Emerald karst cliffs of Ha Long Bay, Phu Quoc beach villas and French Indochina charm',
         seasonSummary: 'Ноябрь–Апрель (о. Фукуок и Юг), Февраль–Август (Нячанг и Дананг)',
@@ -749,18 +790,21 @@
           { title: 'Три разные климатические зоны', titleEn: 'Three Distinct Microclimates', desc: 'Зимой солнечная погода и штиль ждут на острове Фукуок и в Муйне, а с весны до осени — в Нячанге и Дананге.', descEn: 'Winter brings calm sunny seas to Phu Quoc in the south, while spring and summer are ideal for Da Nang and Nha Trang.' },
           { title: 'Безопасность и приложение Grab', titleEn: 'Grab Super-App & Safety', desc: 'Для такси и доставки используйте приложение Grab. При переходе улицы идите плавно — поток байков вас аккуратно объедет.', descEn: 'Use Grab for reliable rides. Cross streets at a steady, predictable pace and scooters will smoothly flow around you.' }
         ],
-        verdict: '«Пятизвездочные резорты мировых сетей (Regent, InterContinental, Six Senses) по ценам вдвое доступнее соседей и полные 45 дней без виз».',
-        verdictEn: '«World-class 5-star resorts (Regent, InterContinental, Six Senses) at half the price of neighboring hubs, with 45 days visa-free».',
+        verdict: 'Пятизвездочные резорты мировых сетей (Regent, InterContinental, Six Senses) по ценам вдвое доступнее соседних стран и полные 45 дней без виз.',
+        verdictEn: 'World-class 5-star resorts (Regent, InterContinental, Six Senses) at half the price of neighboring hubs, with 45 days visa-free.',
         photos: [
           { url: u('1528127269322-539801943592'), caption: 'Бухта Халонг • Тысячи карстовых островов в изумрудных водах', captionEn: 'Ha Long Bay • Emerald waters and limestone islands' },
-          { url: u('1559592413-7cec4d0cae2b'), caption: 'Дананг • Знаменитый Золотой мост в горах Бана Хиллс', captionEn: 'Da Nang • Iconic Golden Bridge in Ba Na Hills' },
-          { url: u('1583417319070-4a69db38a482'), caption: 'Остров Фукуок • Белоснежные пляжи с кокосовыми пальмами', captionEn: 'Phu Quoc Island • White-sand palm beaches' }
+          { url: u('1552465011-b4e21bf6e79a'), caption: 'Остров Фукуок • Тропические бухты, лодки и коралловые пляжи', captionEn: 'Phu Quoc & Coast • Tropical emerald bays and beaches' },
+          { url: u('1508009603885-50cf7c579365'), caption: 'Дананг и Хошимин • Современные набережные и огни Индокитая', captionEn: 'Da Nang & Ho Chi Minh City • Vibrant waterfront skyline' }
         ]
       },
 
       china: {
         id: 'china', region: 'asia', name: 'Китай', nameEn: 'China', flag: '🇨🇳',
-        priceLevel: '$$ • Умеренно / Люкс', priceLevelEn: '$$ • Moderate / Luxury',
+        priceLevel: 'Средний / Комфортный', priceLevelEn: 'Moderate / Comfort',
+        flightStatus: 'Много прямых рейсов ежедневно', flightStatusEn: 'Multiple Daily Direct Flights',
+        flightDetails: 'Широкая сетка прямых ежедневных рейсов из Москвы, Санкт-Петербурга, Сибири и Дальнего Востока в Пекин, Шанхай, Гуанчжоу, Чэнду и на курортный остров Хайнань (Санья, Хайкоу). Время в полете из Москвы: 7.5–10 часов.',
+        flightDetailsEn: 'Extensive daily direct flights to Beijing, Shanghai, Guangzhou, Chengdu and Hainan Island (Sanya). Flight time: 7.5–10 hours.',
         tagline: 'Цифровая сверхдержава, древние династии и неземные ландшафты',
         taglineEn: 'Digital superpower, ancient imperial dynasties and surreal Avatar mountain landscapes',
         seasonSummary: 'Апрель–Май и Сентябрь–Ноябрь (Материк), Круглый год (о. Хайнань)',
@@ -787,8 +831,8 @@
           { title: 'Интернет и связь', titleEn: 'Connectivity & eSIM', desc: 'Привычные мессенджеры (Telegram, WhatsApp) работают только с заранее подключенной туристической eSIM или VPN.', descEn: 'Install a travel eSIM or VPN prior to arrival to access Western apps, Google Maps, WhatsApp and Telegram.' },
           { title: 'Высочайшая безопасность', titleEn: 'Ultra-Safe Cities & Bullet Trains', desc: 'Улицы абсолютно безопасны 24/7. Скоростные поезда идут 350 км/ч — билеты привязаны к номеру паспорта.', descEn: 'Cities are safe 24/7. High-speed trains run at 350 km/h with passport-linked digital tickets.' }
         ],
-        verdict: '«Впечатляющий контраст киберпанка Шанхая, парящих гор Аватара в Чжанцзяцзе и тропических бухт Хайнаня».',
-        verdictEn: '«A breathtaking contrast of cyberpunk Shanghai, floating Avatar peaks in Zhangjiajie and tropical Hainan bays».',
+        verdict: 'Впечатляющий контраст киберпанка Шанхая, парящих гор Аватара в Чжанцзяцзе и тропических бухт острова Хайнань.',
+        verdictEn: 'A breathtaking contrast of cyberpunk Shanghai, floating Avatar peaks in Zhangjiajie and tropical Hainan bays.',
         photos: [
           { url: u('1508804185872-d7badad00f7d'), caption: 'Великая Китайская стена • Участок Мутяньюй на рассвете', captionEn: 'Great Wall of China • Mutianyu section at sunrise' },
           { url: u('1548919973-5cef591cdbc9'), caption: 'Шанхай • Футуристическая панорама района Пудун', captionEn: 'Shanghai • Futuristic Pudong skyline' },
@@ -798,7 +842,10 @@
 
       maldives: {
         id: 'maldives', region: 'asia', name: 'Мальдивы', nameEn: 'Maldives', flag: '🇲🇻',
-        priceLevel: '$$$$ • Ультра-люкс', priceLevelEn: '$$$$ • Ultra-Luxury',
+        priceLevel: 'Высокий (Премиум и Ультра-люкс резорты)', priceLevelEn: 'High (Luxury Island Resorts)',
+        flightStatus: 'Прямые рейсы и удобные стыковки', flightStatusEn: 'Direct Flights & 1-Stop Connections',
+        flightDetails: 'Круглогодичные прямые рейсы из Москвы в Мале (время в полете около 8.5–9 часов), а также комфортные перелеты с одной пересадкой в Дубае, Абу-Даби или Дохе. Из аэропорта Мале до островов-отелей гостей доставляют на гидросамолете или скоростном катере.',
+        flightDetailsEn: 'Year-round direct flights to Malé (8.5–9h) or 1-stop flights via Dubai, Abu Dhabi or Doha, followed by scenic seaplane or speedboat transfer to your resort.',
         tagline: 'Приватные острова-резорты, водные виллы и эталонный океан',
         taglineEn: 'Private one-island-one-resort sanctuaries, overwater villas and pristine coral lagoons',
         seasonSummary: 'Ноябрь–Апрель (Сухой солнечный муссон Ируваи)',
@@ -825,18 +872,21 @@
           { title: 'Строгий запрет на ввоз алкоголя', titleEn: 'Strict Alcohol Import Ban', desc: 'Алкоголь нельзя ввозить в багаже даже из Duty Free. На самих резортах он свободно доступен в барах и ресторанах.', descEn: 'Bringing alcohol into the country (even from Duty Free) is strictly prohibited, though freely served at private resorts.' },
           { title: 'Охрана кораллового рифа', titleEn: 'Marine Conservation', desc: 'Запрещено поднимать со дна раковины и кораллы, а также трогать морских черепах.', descEn: 'Collecting corals or shells and touching sea turtles or rays is strictly forbidden.' }
         ],
-        verdict: '«Безальтернативный стандарт тропического уединения, приватных лагун и нулевой визовой бюрократии».',
-        verdictEn: '«The ultimate gold standard of tropical seclusion, turquoise house reefs and effortless visa-free entry».',
+        verdict: 'Безальтернативный стандарт тропического уединения, приватных бирюзовых лагун и нулевой визовой бюрократии.',
+        verdictEn: 'The ultimate gold standard of tropical seclusion, turquoise house reefs and effortless visa-free entry.',
         photos: [
           { url: u('1514282401047-d79a71a590e8'), caption: 'Атолл Баа • Приватные водные виллы над лагуной', captionEn: 'Baa Atoll • Overwater villas above turquoise lagoon' },
           { url: u('1573843981267-be1999ff37cd'), caption: 'Индийский океан • Белоснежные песчаные отмели', captionEn: 'Indian Ocean • Pristine white sandbanks' },
-          { url: u('1540202404-a2f29016b523'), caption: 'Закат над домашним коралловым рифом', captionEn: 'Sunset over the house coral reef' }
+          { url: u('1507525428034-b723cf961d3e'), caption: 'Тропические лагуны и коралловые рифы на закате', captionEn: 'Tropical lagoons and coral reefs at sunset' }
         ]
       },
 
       indonesia: {
         id: 'indonesia', region: 'asia', name: 'Индонезия (Бали)', nameEn: 'Indonesia (Bali)', flag: '🇮🇩',
-        priceLevel: '$$ • Комфорт / Бутик-виллы', priceLevelEn: '$$ • Comfort / Boutique Villas',
+        priceLevel: 'Средний / Бутик-виллы и резорты', priceLevelEn: 'Moderate / Boutique Villas',
+        flightStatus: 'Прямые рейсы и перелеты с 1 пересадкой', flightStatusEn: 'Direct Flights & 1-Stop Connections',
+        flightDetails: 'Выполняются прямые рейсы из Москвы в Денпасар (остров Бали, около 12 часов в пути), а также удобные ежедневные рейсы с одной пересадкой через Доху, Дубай, Шанхай или Гуанчжоу.',
+        flightDetailsEn: 'Direct flights operate to Denpasar (Bali, ~12h), alongside daily one-stop connections via Doha, Dubai, Shanghai or Guangzhou.',
         tagline: 'Остров богов, океанский серфинг, джунгли Убуда и вулканы',
         taglineEn: 'Island of the Gods, world-class surf breaks, Ubud jungle retreats and volcanic peaks',
         seasonSummary: 'Апрель–Октябрь (Сухой сезон), круглогодичный серфинг',
@@ -863,8 +913,8 @@
           { title: 'Аренда авто с водителем или байка', titleEn: 'Private Drivers & Scooters', desc: 'Для поездок к водопадам и храмам удобнее всего брать комфортный минивэн с личным водителем на день.', descEn: 'Hire a private car with driver for day trips to Ubud and temples, or use Gojek/Grab apps.' },
           { title: 'Уважение к храмам', titleEn: 'Temple Dress Code', desc: 'Вход в храмы строго в саронге. Священные деревья и вулканы почитаются местными жителями.', descEn: 'Always wear a sarong and sash when entering Hindu temples.' }
         ],
-        verdict: '«Мировая столица стильных бич-клабов, спа-ретритов в джунглях Убуда и мощной океанской волны».',
-        verdictEn: '«The global capital of designer beach clubs, Ubud jungle wellness retreats and iconic surf breaks».',
+        verdict: 'Мировая столица стильных бич-клабов, спа-ретритов в джунглях Убуда и мощной океанской волны.',
+        verdictEn: 'The global capital of designer beach clubs, Ubud jungle wellness retreats and iconic surf breaks.',
         photos: [
           { url: u('1537996194471-e657df975ab4'), caption: 'Бали • Изумрудные рисовые террасы Тегаллаланг в Убуде', captionEn: 'Bali • Emerald Tegallalang rice terraces in Ubud' },
           { url: u('1518548419970-58e3b4079ab2'), caption: 'Остров Нуса-Пенида • Утесы пляжа Келингкинг', captionEn: 'Nusa Penida • Kelingking Beach cliffs' },
@@ -874,7 +924,10 @@
 
       south_korea: {
         id: 'south_korea', region: 'asia', name: 'Южная Корея', nameEn: 'South Korea', flag: '🇰🇷',
-        priceLevel: '$$$ • Премиум', priceLevelEn: '$$$ • Premium',
+        priceLevel: 'Выше среднего (Премиум)', priceLevelEn: 'Above Average (Premium)',
+        flightStatus: 'Перелет с 1 удобной пересадкой', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Удобные ежедневные перелеты в Сеул (аэропорт Инчхон) и Пусан с одной короткой пересадкой в Пекине, Шанхае, Ташкенте, Дубае или Абу-Даби.',
+        flightDetailsEn: 'Convenient daily flights to Seoul (Incheon) and Busan with a single short layover in Beijing, Shanghai, Tashkent or Dubai.',
         tagline: 'Ультрасовременный Сеул, бьюти-индустрия, K-culture и древние дворцы',
         taglineEn: 'Ultramodern Seoul, high-tech beauty clinics, K-culture and royal Joseon palaces',
         seasonSummary: 'Апрель–Май (Весна) и Сентябрь–Ноябрь (Золотая осень)',
@@ -901,8 +954,8 @@
           { title: 'Безопасность 24/7', titleEn: '24/7 Urban Safety', desc: 'Вещи можно оставить на столике в кафе — их никто не тронет. Клиники и сервис работают безупречно.', descEn: 'Seoul is exceptionally safe at any hour. Medical and cosmetic clinics offer world-leading standards.' },
           { title: 'Гастрономический этикет', titleEn: 'Dining Etiquette', desc: 'Закуски (панчхан) и воду в ресторанах приносят и пополняют бесплатно. Чаевые не приняты.', descEn: 'Side dishes (banchan) and water are complimentary and refilled freely. Tipping is not customary.' }
         ],
-        verdict: '«Идеальное направление для шопинга, чекапов красоты, гастрономии и погружения в мегаполис будущего».',
-        verdictEn: '«Premier destination for luxury shopping, beauty check-ups, Michelin dining and futuristic city life».',
+        verdict: 'Идеальное направление для шопинга, чекапов красоты, гастрономии и погружения в мегаполис будущего.',
+        verdictEn: 'Premier destination for luxury shopping, beauty check-ups, Michelin dining and futuristic city life.',
         photos: [
           { url: u('1517154421773-0529f29ea451'), caption: 'Сеул • Императорский дворец Кёнбоккун на фоне небоскребов', captionEn: 'Seoul • Gyeongbokgung Palace against modern skyline' },
           { url: u('1538485399081-7191377e8241'), caption: 'Сеул • Огни ночного мегаполиса и башня Намсан', captionEn: 'Seoul • Night metropolis lights & Namsan Tower' },
@@ -912,7 +965,10 @@
 
       japan: {
         id: 'japan', region: 'asia', name: 'Япония', nameEn: 'Japan', flag: '🇯🇵',
-        priceLevel: '$$$ • Премиум', priceLevelEn: '$$$ • Premium',
+        priceLevel: 'Выше среднего (Премиум)', priceLevelEn: 'Above Average (Premium)',
+        flightStatus: 'Перелет с 1 пересадкой (Китай / ОАЭ)', flightStatusEn: '1-Stop Flights via China or UAE',
+        flightDetails: 'Комфортные ежедневные перелеты в Токио и Осаку с одной пересадкой в Пекине, Шанхае (самый быстрый и выгодный маршрут), а также через Дубай, Доху или Стамбул.',
+        flightDetailsEn: 'Convenient daily flights to Tokyo and Osaka with a single layover in Beijing or Shanghai (fastest route), or via Dubai and Doha.',
         tagline: 'Империя высокой эстетики, технологий и древних традиций',
         taglineEn: 'Empire of refined aesthetics, bullet-train technology and ancient Zen traditions',
         seasonSummary: 'Март–Май (Сакура) и Октябрь–Ноябрь (Красные клены момидзи)',
@@ -939,8 +995,8 @@
           { title: 'Культура без чаевых', titleEn: 'No-Tipping Culture', desc: 'Оставлять чаевые не принято и может поставить персонал в неловкое положение.', descEn: 'Impeccable service is standard; tipping is not practiced and will be politely declined.' },
           { title: 'Культ тишины и точности', titleEn: 'Precision & Quiet Etiquette', desc: 'В поездах не разговаривают по телефону. Скоростные поезда Синкансэн ходят с точностью до секунды.', descEn: 'Shinkansen bullet trains run to the second. Phone calls inside train carriages are avoided.' }
         ],
-        verdict: '«Безупречный выбор, если вы ищете максимальную безопасность, гастрономию Michelin и смену культурной оптики».',
-        verdictEn: '«An extraordinary choice for Michelin-starred gastronomy, absolute safety and profound cultural immersion».',
+        verdict: 'Безупречный выбор, если вы ищете максимальную безопасность, гастрономию Michelin и смену культурной оптики.',
+        verdictEn: 'An extraordinary choice for Michelin-starred gastronomy, absolute safety and profound cultural immersion.',
         photos: [
           { url: u('1493976040374-85c8e12f0c0e'), caption: 'Киото • Исторический квартал Хигасияма и пагода Ясака', captionEn: 'Kyoto • Historic Higashiyama district & Yasaka Pagoda' },
           { url: u('1503899036084-c55cdd92da26'), caption: 'Токио • Неоновый пульс вечернего Синдзюку', captionEn: 'Tokyo • Neon pulse of evening Shinjuku' },
@@ -950,7 +1006,10 @@
 
       thailand: {
         id: 'thailand', region: 'asia', name: 'Таиланд', nameEn: 'Thailand', flag: '🇹🇭',
-        priceLevel: '$$ • Комфорт / Люкс-виллы', priceLevelEn: '$$ • Comfort / Luxury Villas',
+        priceLevel: 'Средний / Комфорт и Люкс-виллы', priceLevelEn: 'Moderate / Comfort & Villas',
+        flightStatus: 'Прямые рейсы из многих городов РФ', flightStatusEn: 'Direct Flights Available',
+        flightDetails: 'Прямые регулярные и чартерные рейсы на Пхукет и в Бангкок из Москвы (около 9–9.5 часов в пути), Санкт-Петербурга, Екатеринбурга, Новосибирска, Иркутска и Дальнего Востока.',
+        flightDetailsEn: 'Direct flights to Phuket and Bangkok from Moscow (9–9.5h), St. Petersburg and major Siberian/Far Eastern cities.',
         tagline: 'Тропическая экзотика, приватные острова и философия релакса',
         taglineEn: 'Tropical Andaman islands, private pool villas, yachting and Sabai wellness philosophy',
         seasonSummary: 'Ноябрь–Март (Сухой и солнечный высокий сезон)',
@@ -977,8 +1036,8 @@
           { title: 'Запрет на вейпы', titleEn: 'Strict E-Cigarette & Vape Ban', desc: 'Ввоз и использование электронных сигарет в Таиланде официально запрещены.', descEn: 'Importing or using vapes and e-cigarettes is prohibited by law in Thailand.' },
           { title: 'Философия «Сабай»', titleEn: 'Sabai Etiquette', desc: 'В общении ценится мягкая улыбка и спокойствие; повышение голоса приводит к потере лица.', descEn: 'Calmness and a polite smile open every door; raising your voice is counterproductive.' }
         ],
-        verdict: '«Классика зимнего отдыха у теплого океана со свежими морепродуктами, спа-культурой и роскошными виллами».',
-        verdictEn: '«The beloved winter escape offering warm turquoise seas, fresh seafood, holistic spas and luxury villas».',
+        verdict: 'Классика зимнего отдыха у теплого океана со свежими морепродуктами, спа-культурой и роскошными виллами.',
+        verdictEn: 'The beloved winter escape offering warm turquoise seas, fresh seafood, holistic spas and luxury villas.',
         photos: [
           { url: u('1552465011-b4e21bf6e79a'), caption: 'Провинция Краби • Изумрудные лагуны и скалы', captionEn: 'Krabi • Emerald lagoons and limestone cliffs' },
           { url: u('1528181304800-259b08848526'), caption: 'Северный Таиланд • Древние храмовые комплексы', captionEn: 'Northern Thailand • Golden Buddhist temples' },
@@ -988,7 +1047,10 @@
 
       serbia: {
         id: 'serbia', region: 'europe', name: 'Сербия', nameEn: 'Serbia', flag: '🇷🇸',
-        priceLevel: '$$ • Умеренно', priceLevelEn: '$$ • Moderate',
+        priceLevel: 'Средний / Комфортный', priceLevelEn: 'Moderate / Comfort',
+        flightStatus: 'Прямые рейсы из РФ и пересадки', flightStatusEn: 'Direct Flights from Russia & Connections',
+        flightDetails: 'Регулярные прямые рейсы в Белград из Москвы, Санкт-Петербурга, Сочи и Казани (время в полете около 3 часов), а также удобные рейсы с пересадкой в Стамбуле.',
+        flightDetailsEn: 'Direct flights to Belgrade from Moscow, St. Petersburg, Sochi and Kazan (~3 hours), plus easy connections via Istanbul.',
         tagline: 'Гостеприимные Балканы, богемный Белград, винодельни Воеводины и каньоны',
         taglineEn: 'Warm Balkan hospitality, bohemian Belgrade, Vojvodina wineries and dramatic river canyons',
         seasonSummary: 'Апрель–Октябрь (Прогулки и винодельни), Декабрь–Март (Горные лыжи Копаоник)',
@@ -1015,8 +1077,8 @@
           { title: 'Культ «Полако»', titleEn: 'The Art of Polako (Slow Living)', desc: 'Неспешный ритм жизни, долгие ужины в исторических кафанах Скадарлии и локальные вина.', descEn: 'Unrushed lifestyle centered around long dinners in Skadarlija kafanas and Danube riverfront lounges.' },
           { title: 'Аутентичная гастрономия', titleEn: 'Artisanal Food & Wine', desc: 'Огромные порции блюд на гриле, фермерские сыры и семейные винодельни Фрушка-Горы.', descEn: 'Generous grilled specialties, organic cheeses and boutique wineries in Fruška Gora.' }
         ],
-        verdict: '«Открытая и душевная европейская страна без визовых формальностей — идеальна для гастрономического уикенда».',
-        verdictEn: '«A soulful, visa-free European hub ideal for a gastronomic weekend and wine touring».',
+        verdict: 'Открытая и душевная европейская страна с прямым перелетом и без визовых формальностей — идеальна для гастрономического уикенда.',
+        verdictEn: 'A soulful, visa-free European hub with direct flights, ideal for a gastronomic weekend and wine touring.',
         photos: [
           { url: u('1587974928442-77dc3e0dba72'), caption: 'Белград • Крепость Калемегдан у слияния Савы и Дуная', captionEn: 'Belgrade • Kalemegdan Fortress at the confluence of Sava & Danube' },
           { url: u('1565689157206-0fddef7589a2'), caption: 'Белград • Величественный Храм Святого Саввы', captionEn: 'Belgrade • Cathedral of Saint Sava' },
@@ -1026,7 +1088,10 @@
 
       turkey: {
         id: 'turkey', region: 'europe', name: 'Турция', nameEn: 'Turkey', flag: '🇹🇷',
-        priceLevel: '$$–$$$ • Комфорт / Люкс', priceLevelEn: '$$–$$$ • Comfort / Luxury',
+        priceLevel: 'От среднего до Ультра-люкс отелей', priceLevelEn: 'Moderate to Ultra-Luxury Resorts',
+        flightStatus: 'Прямые рейсы из десятков городов РФ', flightStatusEn: 'Direct Flights Nationwide',
+        flightDetails: 'Ежедневные прямые рейсы из Москвы, Санкт-Петербурга, Сочи, Казани, Екатеринбурга и других городов в Стамбул, Анталью, Бодрум, Даламан и Анкару (время в пути 4–5 часов).',
+        flightDetailsEn: 'Multiple daily direct flights to Istanbul, Antalya, Bodrum and Dalaman from across Russia (4–5 hours flight time).',
         tagline: 'Имперский Стамбул, бирюзовые бухты Бодрума и воздушные шары Каппадокии',
         taglineEn: 'Imperial Istanbul, turquoise Aegean bays of Bodrum and hot-air balloons of Cappadocia',
         seasonSummary: 'Апрель–Ноябрь (Стамбул и Каппадокия), Май–Октябрь (Побережье)',
@@ -1053,8 +1118,8 @@
           { title: 'Культура базаров и торга', titleEn: 'Grand Bazaar Tradition', desc: 'На Гранд-базаре и в частных лавках торг — часть традиционного восточного этикета.', descEn: 'Polite bargaining over tea is part of the cultural etiquette in historic bazaars.' },
           { title: 'Вызов такси через приложения', titleEn: 'Ride-Hailing Apps', desc: 'В Стамбуле используйте BiTaksi или Uber для поездок строго по таксометру.', descEn: 'Use BiTaksi or Uber in Istanbul for metered, transparent rides.' }
         ],
-        verdict: '«Богатейшее культурное наследие Византии и Османской империи в сочетании с маринами и бутик-отелями Эгейского моря».',
-        verdictEn: '«Rich Byzantine and Ottoman heritage paired with world-class marinas and boutique resorts on the Aegean coast».',
+        verdict: 'Богатейшее культурное наследие Византии и Османской империи в сочетании с маринами и бутик-отелями Эгейского моря.',
+        verdictEn: 'Rich Byzantine and Ottoman heritage paired with world-class marinas and boutique resorts on the Aegean coast.',
         photos: [
           { url: u('1524231757912-21f4fe3a7200'), caption: 'Стамбул • Панорама пролива Босфор и мечети на закате', captionEn: 'Istanbul • Bosphorus strait & mosques at sunset' },
           { url: u('1641128324972-af3212f0f6bd'), caption: 'Каппадокия • Рассвет воздушных шаров над долиной Гёреме', captionEn: 'Cappadocia • Hot-air balloons at sunrise over Göreme' },
@@ -1064,7 +1129,10 @@
 
       italy: {
         id: 'italy', region: 'europe', name: 'Италия', nameEn: 'Italy', flag: '🇮🇹',
-        priceLevel: '$$$ • Премиум', priceLevelEn: '$$$ • Premium',
+        priceLevel: 'Выше среднего (Премиум)', priceLevelEn: 'Above Average (Premium)',
+        flightStatus: 'Перелет с 1 пересадкой (Стамбул / Ереван / Дубай)', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Удобные ежедневные перелеты в Рим, Милан, Венецию и Неаполь с одной короткой пересадкой в Стамбуле, Ереване, Белграде, Баку или Дубае.',
+        flightDetailsEn: 'Daily flights to Rome, Milan, Venice and Naples with a single short layover in Istanbul, Yerevan, Belgrade, Baku or Dubai.',
         tagline: 'Искусство красивой жизни, великая архитектура и гастрономия',
         taglineEn: 'La Dolce Vita, Renaissance masterpieces, Lake Como villas and timeless gastronomy',
         seasonSummary: 'Апрель–Июнь и Сентябрь–Октябрь (Бархатный сезон)',
@@ -1091,8 +1159,8 @@
           { title: 'Сервисный сбор Coperto', titleEn: 'Coperto Table Charge', desc: 'В счет ресторана автоматически включается 2–5 € с гостя за хлеб и сервировку.', descEn: 'A customary 2–5 € per person cover charge (coperto) is automatically included in restaurant bills.' },
           { title: 'Зоны ZTL в центрах городов', titleEn: 'ZTL Historic Traffic Zones', desc: 'Въезд на арендованном авто в исторические кварталы без спецпропуска штрафуется камерами.', descEn: 'Do not drive rental cars into restricted historic ZTL zones without a hotel permit.' }
         ],
-        verdict: '«Эталонное направление для эстетов: закрытые винодельни Тосканы, виллы озера Комо и вечная классика Рима».',
-        verdictEn: '«The ultimate destination for aesthetes: private Tuscan vineyards, Lake Como villas and eternal Rome».',
+        verdict: 'Эталонное направление для эстетов: закрытые винодельни Тосканы, виллы озера Комо и вечная классика Рима.',
+        verdictEn: 'The ultimate destination for aesthetes: private Tuscan vineyards, Lake Como villas and eternal Rome.',
         photos: [
           { url: u('1533105079780-92b9be482077'), caption: 'Побережье Амальфи • Каскадные виллы Позитано', captionEn: 'Amalfi Coast • Cascading pastel villas of Positano' },
           { url: u('1516483638261-f4dbaf036963'), caption: 'Лигурия • Скалистые бухты Чинкве-Терре', captionEn: 'Liguria • Cliffside villages of Cinque Terre' },
@@ -1102,7 +1170,10 @@
 
       dominicana: {
         id: 'dominicana', region: 'latam', name: 'Доминикана', nameEn: 'Dominican Republic', flag: '🇩🇴',
-        priceLevel: '$$$ • Премиум-резорты', priceLevelEn: '$$$ • Luxury Beach Resorts',
+        priceLevel: 'Выше среднего (Пляжные резорты)', priceLevelEn: 'Above Average (Beach Resorts)',
+        flightStatus: 'Перелет со стыковкой', flightStatusEn: 'Connecting Flights',
+        flightDetails: 'Перелеты в Пунта-Кану и Санто-Доминго выполняются со стыковкой через Стамбул, Каракас или европейские/ближневосточные хабы.',
+        flightDetailsEn: 'Reached via connecting flights to Punta Cana or Santo Domingo through Istanbul or international transit hubs.',
         tagline: 'Карибский рай, белоснежные пляжи Пунта-Каны, горбатые киты и ритмы бачаты',
         taglineEn: 'Caribbean paradise, white-sand Punta Cana beaches, humpback whales and golf resorts',
         seasonSummary: 'Ноябрь–Апрель (Сухой сезон), Январь–Март (Сезон китов в Самане)',
@@ -1129,8 +1200,8 @@
           { title: 'Шоу горбатых китов', titleEn: 'Samaná Whale Watching', desc: 'Зимой в залив Самана приплывают сотни горбатых китов — незабываемая морская экспедиция.', descEn: 'From January to March, hundreds of humpback whales gather in Samaná Bay.' },
           { title: 'Налог в ресторанах', titleEn: 'Restaurant Taxes (28%)', desc: 'В заведениях вне отелей к счету автоматически добавляется 28% (налог + сервис).', descEn: 'Outside resorts, restaurant bills automatically add 18% tax plus 10% service charge.' }
         ],
-        verdict: '«Пальмовые рощи с открытки, бирюзовая вода, выдержанный ром и расслабленный карибский шик без виз».',
-        verdictEn: '«Postcard palm groves, turquoise Caribbean lagoons, aged rum and effortless visa-free luxury».',
+        verdict: 'Пальмовые рощи с открытки, бирюзовая вода, выдержанный ром и расслабленный карибский шик без виз.',
+        verdictEn: 'Postcard palm groves, turquoise Caribbean lagoons, aged rum and effortless visa-free luxury.',
         photos: [
           { url: u('1580541631950-7282082b53ce'), caption: 'Остров Саона • Нетронутые кокосовые рощи Карибского моря', captionEn: 'Saona Island • Untouched Caribbean palm beaches' },
           { url: u('1544551763-46a013bb70d5'), caption: 'Пунта-Кана • Белоснежный коралловый песок пляжа Баваро', captionEn: 'Punta Cana • White coral sand of Bávaro Beach' },
@@ -1140,7 +1211,10 @@
 
       mexico: {
         id: 'mexico', region: 'latam', name: 'Мексика', nameEn: 'Mexico', flag: '🇲🇽',
-        priceLevel: '$$$ • Премиум', priceLevelEn: '$$$ • Premium',
+        priceLevel: 'Выше среднего (Премиум)', priceLevelEn: 'Above Average (Premium)',
+        flightStatus: 'Перелет с 1 пересадкой (Стамбул / Дубай)', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Перелеты в Канкун и Мехико выполняются с одной пересадкой через Стамбул, Дубай (с посадкой в Барселоне) или Гавану.',
+        flightDetailsEn: 'Flights to Cancún and Mexico City operate with a single connection via Istanbul, Dubai or Havana.',
         tagline: 'Бохо-шик Тулума, сеноты Юкатана, пирамиды майя и высокая гастрономия',
         taglineEn: 'Boho-chic Tulum, Yucatán crystal cenotes, Mayan pyramids and world-renowned gastronomy',
         seasonSummary: 'Ноябрь–Апрель (Сухой солнечный сезон без дождей)',
@@ -1167,8 +1241,8 @@
           { title: 'Гастрономия мирового уровня', titleEn: 'UNESCO-Listed Gastronomy', desc: 'Мехико входит в топ гастрономических столиц планеты со множеством ресторанов из списка 50 Best.', descEn: 'Mexico City is a global culinary capital featuring iconic fine-dining restaurants like Pujol and Quintonil.' },
           { title: 'Подтверждение маршрута на границе', titleEn: 'Printed Travel Documents', desc: 'Имейте при себе распечатанные ваучеры отелей и обратный маршрут для паспортного контроля.', descEn: 'Keep printed copies of your hotel bookings, return ticket and SAE form for immigration inspection.' }
         ],
-        verdict: '«Одно из самых стильных направлений мира: от бирюзовых лагун Тулума до музеев и ресторанов Мехико».',
-        verdictEn: '«One of the world’s most vibrant destinations: from Tulum’s turquoise lagoons to Mexico City’s culinary scene».',
+        verdict: 'Одно из самых стильных направлений мира: от бирюзовых лагун Тулума до музеев и ресторанов Мехико.',
+        verdictEn: 'One of the world’s most vibrant destinations: from Tulum’s turquoise lagoons to Mexico City’s culinary scene.',
         photos: [
           { url: u('1518638150340-f706e86654de'), caption: 'Юкатан • Древняя пирамида Кукулькана в Чичен-Ице', captionEn: 'Yucatán • Mayan pyramid of Kukulcán at Chichén Itzá' },
           { url: u('1504730655501-24c39ac53f0e'), caption: 'Тулум • Руины майя на утесе над Карибским морем', captionEn: 'Tulum • Cliffside Mayan ruins above the Caribbean Sea' },
@@ -1178,7 +1252,10 @@
 
       argentina: {
         id: 'argentina', region: 'latam', name: 'Аргентина', nameEn: 'Argentina', flag: '🇦🇷',
-        priceLevel: '$$ • Выгодно с наличными', priceLevelEn: '$$ • Great Value with Cash USD',
+        priceLevel: 'Средний (Выгодно с наличными USD)', priceLevelEn: 'Moderate (Great Value with USD)',
+        flightStatus: 'Перелет с 1 пересадкой (Стамбул / Дубай / Доха / Аддис-Абеба)', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Регулярные перелеты в Буэнос-Айрес выполняются с одной пересадкой через Стамбул, Дубай, Доху или Аддис-Абебу (Ethiopian Airlines) без транзитных виз.',
+        flightDetailsEn: 'Reached via one-stop flights to Buenos Aires through Istanbul, Dubai, Doha or Addis Ababa without transit visas.',
         tagline: 'Европейский лоск Буэнос-Айреса, ледники Патагонии, танго и великие стейки',
         taglineEn: 'European elegance of Buenos Aires, Patagonian glaciers, Mendoza Malbec & world-famous steaks',
         seasonSummary: 'Октябрь–Апрель (Теплый сезон в Южном полушарии — открыта Патагония)',
@@ -1205,8 +1282,8 @@
           { title: 'Культ стейков Asado и вина Мальбек', titleEn: 'Asado Steaks & Mendoza Malbec', desc: 'Мясные рестораны Палермо и винодельни Мендосы у подножия Анд дарят эталонный гастро-опыт.', descEn: 'Palermo parrilladas and Mendoza’s Andean wine estates offer unforgettable dining.' },
           { title: 'Поздний ритм Буэнос-Айреса', titleEn: 'Late-Night Porteño Culture', desc: 'Ужинать в столице принято садиться после 21:00, а жизнь в барах кипит до утра.', descEn: 'Dinner in Buenos Aires typically starts after 21:00, with tango salons and bars vibrant till dawn.' }
         ],
-        verdict: '«Южноамериканский Париж в сочетании с первозданной мощью ледника Перито-Морено и водопадов Игуасу».',
-        verdictEn: '«The Paris of South America paired with the raw majesty of Perito Moreno Glacier and Iguazu Falls».',
+        verdict: 'Южноамериканский Париж в сочетании с первозданной мощью ледника Перито-Морено и водопадов Игуасу.',
+        verdictEn: 'The Paris of South America paired with the raw majesty of Perito Moreno Glacier and Iguazu Falls.',
         photos: [
           { url: u('1589909202802-8f4aadce1849'), caption: 'Патагония • Гранитные пики массива Фицрой на рассвете', captionEn: 'Patagonia • Granite peaks of Mount Fitz Roy at sunrise' },
           { url: u('1612294037637-ec328d0e075e'), caption: 'Парк Лос-Гласьярес • Гигантский ледник Перито-Морено', captionEn: 'Los Glaciares • Perito Moreno Glacier' },
@@ -1216,7 +1293,10 @@
 
       brazil: {
         id: 'brazil', region: 'latam', name: 'Бразилия', nameEn: 'Brazil', flag: '🇧🇷',
-        priceLevel: '$$–$$$ • Комфорт / Премиум', priceLevelEn: '$$–$$$ • Comfort / Premium',
+        priceLevel: 'Средний / Премиум', priceLevelEn: 'Moderate to Premium',
+        flightStatus: 'Перелет с 1 пересадкой (Дубай / Доха / Стамбул)', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Удобные перелеты в Сан-Паулу и Рио-де-Жанейро с одной пересадкой через Дубай (Emirates), Доху (Qatar Airways), Стамбул (Turkish Airlines) или Аддис-Абебу.',
+        flightDetailsEn: 'Convenient one-stop flights to São Paulo and Rio de Janeiro via Dubai, Doha, Istanbul or Addis Ababa.',
         tagline: 'Энергия Рио-де-Жанейро, мощь водопадов Игуасу, дюны Ленсойс и Амазония',
         taglineEn: 'Vibrant Rio de Janeiro, thundering Iguazu Falls, Lençóis Maranhenses lagoons & the Amazon',
         seasonSummary: 'Сентябрь–Апрель (Теплый солнечный сезон), Февраль (Карнавал)',
@@ -1243,8 +1323,8 @@
           { title: 'Престижные районы Леблон и Ипанема', titleEn: 'Stay in Leblon & Ipanema', desc: 'Останавливайтесь в лучших береговых кварталах и используйте Uber для комфортных перемещений.', descEn: 'Choose beachfront hotels in upscale Leblon or Ipanema and use Uber for evening transport.' },
           { title: 'Яркая пляжная культура', titleEn: 'Carioca Beach Lifestyle', desc: 'Побережье Копакабаны и Ипанемы живет спортом, музыкой и океанским бризом.', descEn: 'Rio’s beaches are vibrant social salons filled with sport, music and sunset applause.' }
         ],
-        verdict: '«Чистый витальный драйв, фантастический рельеф Рио и масштаб дикой природы без визовых преград».',
-        verdictEn: '«Purevital energy, Rio’s dramatic coastal topography and monumental nature without visa barriers».',
+        verdict: 'Чистый витальный драйв, фантастический рельеф Рио и масштаб дикой природы без визовых преград.',
+        verdictEn: 'Pure vital energy, Rio’s dramatic coastal topography and monumental nature without visa barriers.',
         photos: [
           { url: u('1483729558449-99ef09a8c325'), caption: 'Рио-де-Жанейро • Панорама бухты и гора Сахарная Голова', captionEn: 'Rio de Janeiro • Guanabara Bay & Sugarloaf Mountain' },
           { url: u('1516306580123-e6e52b1b7b5f'), caption: 'Статуя Христа-Искупителя на вершине горы Корковаду', captionEn: 'Christ the Redeemer statue atop Corcovado Mountain' },
@@ -1254,7 +1334,10 @@
 
       peru: {
         id: 'peru', region: 'latam', name: 'Перу', nameEn: 'Peru', flag: '🇵🇪',
-        priceLevel: '$$–$$$ • Экспедиционный люкс', priceLevelEn: '$$–$$$ • Expedition Luxury',
+        priceLevel: 'Средний / Экспедиционный люкс', priceLevelEn: 'Moderate to Expedition Luxury',
+        flightStatus: 'Перелет со стыковками (через Стамбул / Сан-Паулу)', flightStatusEn: 'Connecting Flights via Hub Cities',
+        flightDetails: 'Перелеты в Лиму выполняются со стыковками через Стамбул и Сан-Паулу или Боготу (без необходимости получения транзитных виз США или Шенгена). Из Лимы до Куско (Мачу-Пикчу) — 1 час 20 минут местным рейсом.',
+        flightDetailsEn: 'Reached via connecting flights to Lima through Istanbul and São Paulo/Bogotá. Cusco is a 1h 20m domestic flight from Lima.',
         tagline: 'Затерянный город инков Мачу-Пикчу, Священная долина и высокая кухня Лимы',
         taglineEn: 'Lost Inca citadel of Machu Picchu, Sacred Valley luxury trains and Lima’s world-leading cuisine',
         seasonSummary: 'Апрель–Ноябрь (Сухой сезон в Андах), Декабрь–Март (Побережье Лимы)',
@@ -1281,8 +1364,8 @@
           { title: 'Панорамные поезда к Мачу-Пикчу', titleEn: 'Belmond Luxury Trains & Tickets', desc: 'Билеты в цитадель и места в поездах Belmond Hiram Bingham или Vistadome бронируйте заранее.', descEn: 'Book Machu Picchu entry circuits and Belmond Hiram Bingham or Vistadome trains 1–2 months ahead.' },
           { title: 'Лима — столица мировой гастрономии', titleEn: 'Lima: World Culinary Capital', desc: 'Рестораны Central и Maido в Лиме возглавляют мировые рейтинги The World’s 50 Best.', descEn: 'Lima’s Central and Maido top The World’s 50 Best Restaurants list.' }
         ],
-        verdict: '«Путешествие-инициация: мистика империи Инков, роскошные поезда в Андах и лучшая авторская кухня мира».',
-        verdictEn: '«A bucket-list expedition combining Inca mysticism, luxury Andean trains and the world’s #1 gastronomy».',
+        verdict: 'Путешествие-инициация: мистика империи Инков, роскошные поезда в Андах и лучшая авторская кухня мира.',
+        verdictEn: 'A bucket-list expedition combining Inca mysticism, luxury Andean trains and the world’s #1 gastronomy.',
         photos: [
           { url: u('1526392060635-9d6019884377'), caption: 'Анды • Древняя цитадель инков Мачу-Пикчу в облаках', captionEn: 'Andes • Ancient Inca citadel of Machu Picchu' },
           { url: u('1587595431973-160d0d94add1'), caption: 'Гора Виникунка • Радужные склоны Перуанских Анд', captionEn: 'Vinicunca • Rainbow Mountain in the Peruvian Andes' },
@@ -1292,7 +1375,10 @@
 
       uae: {
         id: 'uae', region: 'mena', name: 'ОАЭ', nameEn: 'UAE (Dubai & Abu Dhabi)', flag: '🇦🇪',
-        priceLevel: '$$$ • Люкс', priceLevelEn: '$$$ • Luxury',
+        priceLevel: 'Выше среднего (Премиум и Люкс)', priceLevelEn: 'Above Average (Luxury)',
+        flightStatus: 'Прямые рейсы из большинства крупных городов РФ', flightStatusEn: 'Direct Flights Nationwide',
+        flightDetails: 'Огромное количество ежедневных прямых рейсов в Дубай, Абу-Даби и Шарджу из Москвы (около 5–5.5 часов в пути), Санкт-Петербурга, Казани, Екатеринбурга, Сочи, Новосибирска и других городов.',
+        flightDetailsEn: 'Numerous daily direct flights to Dubai, Abu Dhabi and Sharjah from Moscow (5–5.5h) and over 15 Russian cities.',
         tagline: 'Футуристический оазис роскоши, сервиса и деловой динамики',
         taglineEn: 'Futuristic oasis of luxury resorts, Michelin dining, yacht marinas and desert glamping',
         seasonSummary: 'Октябрь–Апрель (Идеальный пляжный и городской климат)',
@@ -1319,8 +1405,8 @@
           { title: 'Уважение к местному этикету', titleEn: 'Respectful Smart-Casual Dress', desc: 'В моллах и общественных местах уместен элегантный стиль одежды.', descEn: 'Smart-casual attire is appreciated in shopping malls and cultural landmarks.' },
           { title: 'Абсолютная безопасность', titleEn: 'Top Global Safety', desc: 'Дубай и Абу-Даби стабильно входят в топ-5 самых безопасных городов планеты.', descEn: 'Dubai and Abu Dhabi consistently rank among the top 5 safest cities in the world.' }
         ],
-        verdict: '«Максимальный комфорт без виз: теплое море, мировая гастрономия и лучшая инфраструктура для отдыха и шопинга».',
-        verdictEn: '«Maximum comfort with zero visa friction: warm beaches, global dining and premier shopping».',
+        verdict: 'Максимальный комфорт без виз: прямые перелеты, теплое море, мировая гастрономия и лучшая инфраструктура.',
+        verdictEn: 'Maximum comfort with zero visa friction: direct flights, warm beaches, global dining and premier shopping.',
         photos: [
           { url: u('1512453979798-5ea266f8880c'), caption: 'Дубай • Панорама небоскребов и Бурдж-Халифа в золотой час', captionEn: 'Dubai • Burj Khalifa & Downtown skyline at sunset' },
           { url: u('1518684079-3c830dcef090'), caption: 'Абу-Даби • Белоснежная мечеть шейха Зайда', captionEn: 'Abu Dhabi • Sheikh Zayed Grand Mosque' },
@@ -1330,7 +1416,10 @@
 
       south_africa: {
         id: 'south_africa', region: 'mena', name: 'ЮАР', nameEn: 'South Africa', flag: '🇿🇦',
-        priceLevel: '$$$ • Премиум-сафари', priceLevelEn: '$$$ • Luxury Safari & Wine',
+        priceLevel: 'Средний на месте / Премиум-сафари', priceLevelEn: 'Moderate Locally / Luxury Safari',
+        flightStatus: 'Перелет с 1 удобной пересадкой', flightStatusEn: '1-Stop Connecting Flights',
+        flightDetails: 'Ежедневные перелеты в Кейптаун и Йоханнесбург с одной пересадкой через Доху (Qatar Airways), Дубай (Emirates), Стамбул (Turkish Airlines) или Аддис-Абебу (Ethiopian Airlines).',
+        flightDetailsEn: 'Daily one-stop flights to Cape Town and Johannesburg via Doha, Dubai, Istanbul or Addis Ababa.',
         tagline: 'Океанский Кейптаун, мыс Доброй Надежды, пингвины, киты и сафари «Большой пятерки»',
         taglineEn: 'Oceanfront Cape Town, Cape of Good Hope, Stellenbosch wineries & Big Five private safaris',
         seasonSummary: 'Октябрь–Апрель (Теплое лето в Кейптауне и на винодельнях)',
@@ -1357,8 +1446,8 @@
           { title: 'Винодельни Стелленбоша и Франшхука', titleEn: 'Stellenbosch & Franschhoek Estates', desc: 'Высокая кухня и исторические винные поместья мирового уровня по очень приятным ценам.', descEn: 'World-class fine dining and historic wine estates at exceptional value.' },
           { title: 'Комфортная логистика', titleEn: 'Safe Upscale Districts', desc: 'В Кейптауне останавливаются в районах V&A Waterfront и Camps Bay, передвигаясь на авто с водителем или Uber Black.', descEn: 'Stay in V&A Waterfront, Camps Bay or Clifton and use private drivers or Uber Black.' }
         ],
-        verdict: '«Главное открытие для искушенных путешественников: слияние двух океанов, частные сафари-лоджи и великие вина без виз».',
-        verdictEn: '«A revelation for discerning travelers: dramatic ocean cliffs, private safari lodges and grand wines».',
+        verdict: 'Главное открытие для искушенных путешественников: слияние двух океанов, частные сафари-лоджи и великие вина без виз.',
+        verdictEn: 'A revelation for discerning travelers: dramatic ocean cliffs, private safari lodges and grand wines.',
         photos: [
           { url: u('1580060839134-75a5edca2e99'), caption: 'Кейптаун • Вид на Столовую гору, Львиную Голову и Атлантику', captionEn: 'Cape Town • Table Mountain, Lion’s Head & Atlantic coast' },
           { url: u('1516426122078-c23e76319801'), caption: 'Частные резерваты Крюгера • Утреннее сафари Большой пятерки', captionEn: 'Kruger Private Reserves • Morning Big Five safari' },
@@ -1380,12 +1469,6 @@
       updateFavBadge();
       applyLanguageUI();
       setupSearch();
-
-      window.addEventListener('popstate', () => {
-        if (!document.getElementById('screen-country').classList.contains('hidden')) {
-          showHome(false);
-        }
-      });
     });
 
     function filterRegion(region) {
@@ -1407,7 +1490,7 @@
 
         return `
           <button onclick="selectCountry('${c.id}')" class="group relative h-32 rounded-2xl overflow-hidden text-left p-3.5 flex flex-col justify-between border border-white/15 hover:border-gold transition">
-            <img src="${c.photos[0].url}" alt="${displayName}" class="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:scale-105 transition duration-500">
+            <img src="${c.photos[0].url}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80';" alt="${displayName}" class="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:scale-105 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/45 to-transparent"></div>
             <div class="relative z-10 flex justify-between items-center w-full">
               <span class="text-xl">${c.flag}</span>
@@ -1491,7 +1574,7 @@
 
       if (rawQuery && rawQuery.length >= 2) {
         const safeName = rawQuery.replace(/['"<>]/g, '');
-        const openTitle = currentLang === 'en' ? `Open Dossier: «${safeName}»` : `Открыть досье: «${safeName}»`;
+        const openTitle = currentLang === 'en' ? `Open Dossier: ${safeName}` : `Открыть досье: ${safeName}`;
         const openSub = currentLang === 'en' ? 'Generate executive summary' : 'Сформировать сводку по направлению';
         html += `
           <button onclick="generateDynamicCountry('${safeName}')" class="w-full px-4 py-3.5 flex items-center justify-between bg-gold/15 hover:bg-gold/25 transition text-left">
@@ -1516,7 +1599,10 @@
       const dynamicId = 'custom_' + formattedName.toLowerCase();
       COUNTRIES[dynamicId] = {
         id: dynamicId, region: 'all', name: formattedName, nameEn: formattedName, flag: '🌍',
-        priceLevel: '$$–$$$ • Индивидуальный расчет', priceLevelEn: '$$–$$$ • Custom Estimate',
+        priceLevel: 'Средний / Индивидуальный расчет', priceLevelEn: 'Moderate / Custom Estimate',
+        flightStatus: 'Прямые или стыковочные рейсы через хабы', flightStatusEn: 'Direct or 1-Stop Connecting Flights',
+        flightDetails: 'Доступны перелеты с удобной пересадкой через международные хабы (Стамбул, Дубай, Доха, Абу-Даби или Пекин).',
+        flightDetailsEn: 'Accessible via international transit hubs (Istanbul, Dubai, Doha, Abu Dhabi or Beijing).',
         tagline: `Аналитическая сводка Private Travel Concierge по направлению ${formattedName}`,
         taglineEn: `Private Travel Concierge executive briefing for ${formattedName}`,
         seasonSummary: 'Круглогодично с учетом региональной климатической специфики',
@@ -1543,8 +1629,8 @@
           { title: 'Связь и навигация', titleEn: 'Connectivity & Navigation', desc: 'Установите туристическую eSIM заранее и загрузите офлайн-карты региона.', descEn: 'Activate a travel eSIM before departure and download offline maps.' },
           { title: 'Медицинская страховка', titleEn: 'Travel Insurance', desc: 'Для самостоятельных поездок рекомендуется полис с покрытием от $50,000.', descEn: 'Comprehensive medical insurance ($50,000+ coverage) is recommended.' }
         ],
-        verdict: `«Направление «${formattedName}» сформировано по вашему запросу. Добавьте его в шорт-лист для сравнения».`,
-        verdictEn: `«Executive briefing for ${formattedName} generated on request. Add to shortlist to compare».`,
+        verdict: `Направление ${formattedName} сформировано по вашему запросу. Добавьте его в шорт-лист для сравнения.`,
+        verdictEn: `Executive briefing for ${formattedName} generated on request. Add to shortlist to compare.`,
         photos: [
           { url: u('1469854523086-cc02fe5d8800'), caption: `${formattedName} • Панорамные маршруты`, captionEn: `${formattedName} • Scenic routes` },
           { url: u('1507525428034-b723cf961d3e'), caption: `${formattedName} • Природные ландшафты`, captionEn: `${formattedName} • Natural landscapes` }
@@ -1559,16 +1645,12 @@
       document.getElementById('search-dropdown').classList.add('hidden');
     }
 
-    function selectCountry(id, cityKey = null, pushHistory = true) {
+    function selectCountry(id, cityKey = null) {
       const data = COUNTRIES[id];
       if (!data) return;
       currentCountry = data;
       currentCityKey = cityKey;
       currentPhotoIndex = 0;
-
-      if (pushHistory) {
-        try { history.pushState({ country: id }, '', `#${id}`); } catch (e) {}
-      }
 
       document.getElementById('search-dropdown').classList.add('hidden');
       document.getElementById('screen-home').classList.add('hidden');
@@ -1585,218 +1667,9 @@
         cityBox.classList.remove('hidden');
         const allLabel = currentLang === 'en' ? 'All Russia' : 'Вся Россия';
         let pillsHtml = `
-          <button onclick="selectCountry('${data.id}', null, false)" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition shrink-0 ${!cityKey ? 'bg-gold text-obsidian shadow-md' : 'glass text-white hover:border-gold'}">
+          <button onclick="selectCountry('${data.id}', null)" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition shrink-0 ${!cityKey ? 'bg-gold text-obsidian shadow-md' : 'glass text-white hover:border-gold'}">
             ${allLabel}
           </button>
         `;
         Object.entries(data.cities).forEach(([k, cObj]) => {
-          const cTitle = tr(cObj, 'name');
-          const active = cityKey === k;
-          pillsHtml += `
-            <button onclick="selectCountry('${data.id}', '${k}', false)" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition shrink-0 ${active ? 'bg-gold text-obsidian shadow-md' : 'glass text-white hover:border-gold'}">
-              ${cTitle}
-            </button>
-          `;
-        });
-        cityPills.innerHTML = pillsHtml;
-      } else {
-        cityBox.classList.add('hidden');
-      }
-
-      const activeCity = (data.cities && cityKey && data.cities[cityKey]) ? data.cities[cityKey] : null;
-      const displayName = activeCity ? tr(activeCity, 'name') : tr(data, 'name');
-
-      document.getElementById('country-name').textContent = displayName;
-      document.getElementById('country-flag').textContent = data.flag;
-      document.getElementById('country-tagline').textContent = activeCity ? tr(activeCity, 'tagline') : tr(data, 'tagline');
-      document.getElementById('country-price-level').textContent = tr(data, 'priceLevel');
-
-      renderPhoto(activeCity);
-
-      document.getElementById('season-summary').textContent = activeCity ? tr(activeCity, 'season') : tr(data, 'seasonSummary');
-      document.getElementById('season-badge').textContent = activeCity ? tr(activeCity, 'name') : tr(data, 'seasonBadge');
-
-      const tempsList = activeCity ? activeCity.temps : data.temps;
-      document.getElementById('temp-grid').innerHTML = tempsList.map(t => `
-        <div class="bg-white/[0.04] border border-white/10 rounded-2xl p-3.5">
-          <div class="text-xs text-platinum mb-1">${tr(t, 'region')}</div>
-          <div class="text-sm sm:text-base font-semibold text-white">${tr(t, 'value')}</div>
-        </div>
-      `).join('');
-
-      const mList = currentLang === 'en' ? MONTH_NAMES_EN : MONTH_NAMES;
-      document.getElementById('months-bar').innerHTML = mList.map((m, idx) => {
-        const isBest = data.bestMonths.includes(idx + 1);
-        return `
-          <div class="flex flex-col items-center gap-1">
-            <div class="w-full h-2.5 rounded-sm ${isBest ? 'bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]' : 'bg-white/15'}"></div>
-            <span class="text-[11px] ${isBest ? 'text-gold font-bold' : 'text-platinum/70'}">${m}</span>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('visa-status').textContent = tr(data, 'visaStatus');
-      document.getElementById('visa-details').textContent = tr(data, 'visaDetails');
-      document.getElementById('visa-passport').textContent = tr(data, 'visaPassport');
-      document.getElementById('currency-name').textContent = tr(data, 'currencyName');
-      document.getElementById('currency-rate').textContent = tr(data, 'currencyRate');
-
-      document.getElementById('payment-methods').innerHTML = data.payments.map(p => `
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 bg-white/[0.03] p-3 rounded-2xl border border-white/5">
-          <span class="text-white font-medium leading-snug">${tr(p, 'label')}</span>
-          <span class="${p.ok ? 'text-emerald-400' : 'text-rose-400'} font-semibold text-xs sm:text-sm shrink-0">${tr(p, 'status')}</span>
-        </div>
-      `).join('');
-
-      document.getElementById('priorities-list').innerHTML = data.priorities.map(pr => `
-        <li class="flex items-start gap-3 bg-white/[0.03] p-3.5 rounded-2xl border border-white/10">
-          <div class="w-2 h-2 rounded-full bg-gold mt-2 shrink-0"></div>
-          <div>
-            <span class="text-white font-semibold">${tr(pr, 'title')}: </span>
-            <span class="text-platinum">${tr(pr, 'desc')}</span>
-          </div>
-        </li>
-      `).join('');
-
-      document.getElementById('concierge-verdict').textContent = tr(data, 'verdict');
-      updateFavButtonState();
-      lucide.createIcons();
-    }
-
-    function renderPhoto(activeCity = null) {
-      const imgEl = document.getElementById('country-hero-img');
-      if (activeCity && activeCity.photo) {
-        imgEl.src = activeCity.photo;
-        document.getElementById('photo-caption').textContent = tr(activeCity, 'caption');
-        document.getElementById('photo-indicators').innerHTML = `<div class="h-1.5 flex-1 rounded-full bg-gold"></div>`;
-        return;
-      }
-
-      const photo = currentCountry.photos[currentPhotoIndex];
-      imgEl.style.opacity = '0.35';
-      setTimeout(() => {
-        imgEl.src = photo.url;
-        imgEl.style.opacity = '1';
-      }, 100);
-      document.getElementById('photo-caption').textContent = tr(photo, 'caption');
-      document.getElementById('photo-indicators').innerHTML = currentCountry.photos.map((_, idx) => `
-        <div class="h-1.5 flex-1 rounded-full overflow-hidden bg-white/25">
-          <div class="h-full ${idx === currentPhotoIndex ? 'bg-gold' : idx < currentPhotoIndex ? 'bg-white/75' : 'bg-transparent'} transition-all duration-300"></div>
-        </div>
-      `).join('');
-    }
-
-    function nextPhoto() {
-      if (!currentCountry) return;
-      currentCityKey = null;
-      currentPhotoIndex = (currentPhotoIndex + 1) % currentCountry.photos.length;
-      renderPhoto();
-    }
-
-    function prevPhoto() {
-      if (!currentCountry) return;
-      currentCityKey = null;
-      currentPhotoIndex = (currentPhotoIndex - 1 + currentCountry.photos.length) % currentCountry.photos.length;
-      renderPhoto();
-    }
-
-    function showHome(updateHistory = true) {
-      document.getElementById('screen-country').classList.add('hidden');
-      document.getElementById('top-back-btn').classList.add('hidden');
-      document.getElementById('screen-home').classList.remove('hidden');
-      currentCountry = null;
-      currentCityKey = null;
-      clearSearch();
-      window.scrollTo(0, 0);
-      if (updateHistory) {
-        try { history.pushState({}, '', window.location.pathname); } catch (e) {}
-      }
-    }
-
-    function toggleFavorite() {
-      if (!currentCountry) return;
-      const id = currentCountry.id;
-      const idx = favorites.indexOf(id);
-      const cName = tr(currentCountry, 'name');
-      if (idx === -1) {
-        favorites.push(id);
-        showToast(currentLang === 'en' ? `${cName} added to shortlist` : `${cName} добавлена к сравнению`);
-      } else {
-        favorites.splice(idx, 1);
-        showToast(currentLang === 'en' ? `${cName} removed` : `${cName} удалена из списка`);
-      }
-      updateFavBadge();
-      updateFavButtonState();
-    }
-
-    function updateFavBadge() {
-      const badge = document.getElementById('fav-badge');
-      badge.textContent = favorites.length;
-      badge.classList.toggle('hidden', favorites.length === 0);
-    }
-
-    function updateFavButtonState() {
-      const isFav = favorites.includes(currentCountry.id);
-      const btnText = document.getElementById('fav-btn-text');
-      const btn = document.getElementById('fav-btn');
-      if (isFav) {
-        btnText.textContent = currentLang === 'en' ? 'In Shortlist (Remove)' : 'В шорт-листе (Убрать)';
-        btn.classList.remove('bg-gold', 'text-obsidian');
-        btn.classList.add('glass', 'gold-border', 'text-gold');
-      } else {
-        btnText.textContent = currentLang === 'en' ? 'Add to Shortlist' : 'В шорт-лист для сравнения';
-        btn.classList.add('bg-gold', 'text-obsidian');
-        btn.classList.remove('glass', 'gold-border', 'text-gold');
-      }
-    }
-
-    function openCompareModal() {
-      const listEl = document.getElementById('compare-list');
-      if (favorites.length === 0) {
-        listEl.innerHTML = `<div class="text-center py-10 text-platinum text-sm">${currentLang === 'en' ? 'Your shortlist is empty.' : 'Ваш шорт-лист пуст. Добавьте страны для сравнения.'}</div>`;
-      } else {
-        listEl.innerHTML = favorites.map(id => {
-          const c = COUNTRIES[id];
-          if (!c) return '';
-          const displayName = tr(c, 'name');
-          return `
-            <div onclick="closeCompareModal(); selectCountry('${c.id}')" class="glass hover:border-gold p-4 rounded-2xl flex items-center justify-between cursor-pointer transition">
-              <div class="flex items-center gap-3.5">
-                <img src="${c.photos[0].url}" class="w-14 h-14 rounded-xl object-cover shrink-0" alt="${displayName}">
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-base font-semibold text-white">${displayName}</span>
-                    <span>${c.flag}</span>
-                  </div>
-                  <div class="text-xs text-gold mt-0.5">${tr(c, 'seasonBadge')}</div>
-                  <div class="text-xs text-platinum mt-0.5">${tr(c, 'visaStatus')}</div>
-                </div>
-              </div>
-              <i data-lucide="chevron-right" class="w-5 h-5 text-platinum shrink-0"></i>
-            </div>
-          `;
-        }).join('');
-      }
-      document.getElementById('modal-compare').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function closeCompareModal() {
-      document.getElementById('modal-compare').classList.add('hidden');
-    }
-
-    function shareCountry() {
-      if (!currentCountry) return;
-      const cName = tr(currentCountry, 'name');
-      showToast(currentLang === 'en' ? `Dossier «${cName}» copied` : `Досье «${cName}» скопировано`);
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-text').textContent = message;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 2400);
-    }
-  </script>
-</body>
-</html>
+          const cTitle
